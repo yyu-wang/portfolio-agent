@@ -7,13 +7,13 @@
 <title>王嵛 · 资深前端开发工程师（AI Agent 应用方向）</title>
 <style>
   :root {
-    --bg: #f0eef5;
+    --bg: #eef2f8;
     --surface: #ffffff;
-    --ink: #1e1b2e;
-    --muted: #5c556f;
-    --rule: #e0dce8;
-    --accent: #6d28d9;
-    --accent2: #4c1d95;
+    --ink: #1a1f2e;
+    --muted: #5a6378;
+    --rule: #d0d8e8;
+    --accent: #2563eb;
+    --accent2: #1e40af;
     --font-sans: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
     --font-mono: 'SF Mono', 'Menlo', 'Consolas', monospace;
   }
@@ -148,6 +148,8 @@
     <dl class="kv">
       <dt>Agent 工具编排</dt>
       <dd>生产级 Agent 工具编排体系落地：实现<b>6 种工具类型</b>（Bing 联网搜索 / 小红书笔记 / 趋势报告 / RAG 知识库 / AI 生图 / 工作流），按 <b>tool_id 实时聚合</b>工具执行状态（STARTED → SUCCEEDED），多工具<b>并发执行 + UI 联动</b>展示（工具气泡 / 思考块 / 相关追问）。</dd>
+      <dt>Agent 框架</dt>
+      <dd>熟悉 <b>LangChain / LangGraph</b> Agent 开发生态，掌握 <b>ReAct</b> / Plan-and-Execute / Multi-Agent 等编排范式；熟练运用 <b>Function Calling / Tool Calling</b>、Prompt Engineering、Chain of Thought 思考链、Agent 状态机等核心概念，具备从框架级 Agent 到自研编排引擎的全链路能力。</dd>
       <dt>多协议 SSE</dt>
       <dd>三种 Agent 供应商协议适配与归一化：<b>Knodo</b>（扁平 chunk）/ <b>AgentPro BTY</b>（三段式 conversation）/ <b>BetterYeah 斑头雁</b>（嵌套 delta + THINKING / TEXT / FUNCTION / RELATED_QUESTIONS），统一映射为 <b>AgentStreamEvent</b> 事件模型，新增供应商 UI 层零改动。</dd>
       <dt>RAG 向量检索</dt>
@@ -163,8 +165,10 @@
   <section>
     <h2 class="sec">专业技能<span class="en">SKILLS</span></h2>
     <dl class="kv">
+      <dt>Agent 框架</dt>
+      <dd><b>LangChain</b>（Chain / Agent / Tool / Memory）· <b>LangGraph</b>（StateGraph / 条件路由 / Human-in-the-loop）· ReAct / Plan-and-Execute / Multi-Agent 编排范式 · Function Calling / Tool Calling · Prompt Engineering · Chain of Thought · Agent 状态机</dd>
       <dt>Agent 编排</dt>
-      <dd>Agent 工具编排（6 种工具类型、tool_id 聚合、多工具并发）· 思考链展示 · 相关追问推荐 · 工作流（flow）触发 · 工具气泡 UI 组件体系</dd>
+      <dd>自研 Agent 工具编排体系（6 种工具类型、tool_id 聚合、多工具并发）· 思考链展示 · 相关追问推荐 · 工作流（flow）触发 · 工具气泡 UI 组件体系</dd>
       <dt>多协议 SSE</dt>
       <dd><b>三种 Agent 协议适配</b>（Knodo 扁平 chunk / AgentPro BTY 三段式 / BetterYeah 嵌套 delta）· AgentStreamEvent 事件归一化 · @microsoft/fetch-event-source · 断线自动重连 · 取消状态机</dd>
       <dt>RAG / 向量检索</dt>
