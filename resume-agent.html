@@ -256,7 +256,7 @@
       </div>
       <ul class="bul">
         <li>设计<b>Agent 工具编排体系</b>：实现 6 种工具类型（Bing 联网搜索 / 小红书笔记 / 趋势报告 / RAG 知识库 / AI 生图 / 工作流），按 <b>tool_id 实时聚合</b>执行状态（STARTED → SUCCEEDED），多工具并发执行 + UI 联动（工具气泡 / 思考块 / 相关追问）</li>
-        <li>落地<b>ReAct 思考链 + Agent 状态机</b>：参考 LangChain ReAct Agent 范式，设计 THINKING → TOOL_CALLING → OBSERVATION → ANSWER → RELATED_QUESTIONS 五态流转，结合 LangGraph StateGraph 条件路由思路实现多轮工具编排与 Human-in-the-loop 确认</li>
+        <li>落地<b>ReAct 思考链 + Agent 状态机</b>：参考 ReAct 范式设计 THINKING → TOOL_CALLING → OBSERVATION → ANSWER → RELATED_QUESTIONS 五态流转，结合状态图条件路由思路实现多轮工具编排与 Human-in-the-loop 确认</li>
         <li>构建<b>多协议 SSE 流式解析层</b>（双层架构）：Knodo（扁平 chunk）/ AgentPro BTY（三段式 conversation）/ BetterYeah 斑头雁（嵌套 delta + THINKING / TEXT / FUNCTION / RELATED_QUESTIONS）三种协议归一化为 <b>AgentStreamEvent</b>，新增供应商 UI 层零改动</li>
         <li>实现<b>RAG 知识库检索</b>全链路：parseKnowledgeCardResults 解析向量命中段落、相似度评分、TOP N 排名，文件名 / 知识库名 / 段落内容 / 原文链接完整展示</li>
         <li>自主研发<b>多模型并行生图调度器</b>：SSE 逐帧分槽 + 用户取消状态机；buildAgentGenerateImageToolGroup 合并多条 generate_image 为一组 UI，队列管理（loading / waiting / done 三态），兼容 Markdown / URL / 数组 / 对象多格式图片解析</li>
@@ -274,7 +274,7 @@
         <span class="chip">Vue 3</span><span class="chip">TypeScript</span><span class="chip">向量存储</span><span class="chip">SSE</span><span class="chip">Function Calling</span><span class="chip">RAG</span><span class="chip">Konva.js</span><span class="chip">md-editor-v3</span><span class="chip">KaTeX</span><span class="chip">vue-i18n</span>
       </div>
       <ul class="bul">
-        <li>设计<b>AI 助手 Agent 编排体系</b>：将向量知识库、AI 绘画、OCR 批改等能力封装为 <b>Function Calling 工具</b>，按 LangChain Chain + Memory 范式构建多轮 Agent 对话，支持教师自定义助手人设、知识源与工具组合</li>
+        <li>设计<b>AI 助手 Agent 编排体系</b>：将向量知识库、AI 绘画、OCR 批改等能力封装为 <b>Function Calling 工具</b>，构建多轮 Agent 对话系统，支持教师自定义助手人设、知识源与工具组合</li>
         <li>设计<b>向量存储管理闭环</b>：向量库创建 / 更新 / 删除、文件上传入库、向量库 ↔ AI 助手关联；助手分类与示例管理，支撑教师自定义 AI 助手知识源</li>
         <li>实现<b>AI 绘画并发排队系统</b>：排队位置实时查询（imageQueueApi）、16 种学科风格模板、画作历史记录与详情管理</li>
         <li><b>SSE 流式对话系统</b>：逐字输出、Markdown + LaTeX 实时渲染（LaTeX 转义规范化）、断线自动重连，弱网场景对话不中断</li>
