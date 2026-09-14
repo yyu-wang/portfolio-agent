@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>王嵛 · AI Agent 应用工程师 · 求职作品集</title>
-<meta name="description" content="7 年前端经验，专注 AI Agent 应用层：工具编排、多协议 SSE、RAG 向量检索、多模型调度、端侧推理。百丽 AI 设计平台「丽境」前端核心开发。" />
+<meta name="description" content="7 年前端经验，专注 AI Agent 应用层：Agent 事件消费层、多协议 SSE、RAG 全链路、多模型调度、端侧推理。百丽 AI 设计平台「丽境」前端核心开发。" />
 <style>
   :root {
     --bg: #0c1018;
@@ -327,7 +327,7 @@
         <h1>构建 <span class="grad">Agent</span> 与人<br/>协作的界面</h1>
         <div class="pos">AI Agent 应用开发工程师</div>
         <div class="thesis">
-          7 年前端经验，专注 <b>Agent 应用层</b>全链路：工具编排、多协议 SSE 流式、RAG 向量检索、多模型并行调度、端侧推理。主导百丽「丽境」AI 设计平台前端建设，<b>日均调用超万次</b>。
+          7 年前端经验，专注 <b>Agent 应用层</b>全链路：Agent 事件消费层、多协议 SSE 归一化、RAG 全链路自研、多模型并行调度、端侧推理。主导百丽「丽境」AI 设计平台前端建设，<b>日均调用超万次</b>。
         </div>
         <div class="stats">
           <div class="stat"><div class="n">6</div><div class="l">Agent 工具类型</div></div>
@@ -344,7 +344,7 @@
         <div class="terminal">
           <div class="tbar"><i></i><i></i><i></i><span>SSE 流式事件 · Agent demo</span><span class="live">LIVE</span></div>
           <div class="tbody">
-<span class="c">// Agent 工具编排 · 多协议 SSE 实时流</span><br/>
+<span class="c">// Agent 事件消费层 · 多协议 SSE 实时流</span><br/>
 <span class="k">event:</span> <span class="s">THINKING</span><br/>
 <span class="k">data:</span>  正在分析用户意图...<br/>
 <span class="k">event:</span> <span class="s">FUNCTION</span><br/>
@@ -383,16 +383,16 @@
           <span class="role">前端核心开发</span>
           <span class="date">2026.01 – 2026.07</span>
         </div>
-        <p class="pain">鞋服设计需同时对接多家大模型供应商，<b>Agent 协议各异</b>、工具调用状态分散——主导打造覆盖「Agent 对话 → 工具编排 → 智能生图 → 图像编辑 → 趋势洞察」全链路的 AI Agent 创作引擎，服务鞋服箱包行业设计师。</p>
+        <p class="pain">鞋服设计需同时对接多家大模型供应商，<b>Agent 协议各异</b>、工具调用状态分散——主导打造覆盖「Agent 对话 → 工具消费 → 智能生图 → 图像编辑 → 趋势洞察」全链路的 AI 创作平台，负责 <b>Agent 事件消费层</b>设计与核心实现，服务鞋服箱包行业设计师。</p>
         <span class="badge">日均调用超万次</span>
         <div class="chips">
           <span class="chip hl">Vue 3</span><span class="chip hl">TypeScript</span><span class="chip hl">SSE</span><span class="chip">@microsoft/fetch-event-source</span><span class="chip hl">AgentStreamEvent</span><span class="chip hl">RAG</span><span class="chip hl">Gemini</span><span class="chip hl">GPT</span><span class="chip hl">ComfyUI</span><span class="chip hl">onnxruntime-web</span><span class="chip">Canvas 2D</span><span class="chip">Fabric.js</span><span class="chip">Three.js</span>
         </div>
         <ul>
-          <li>设计<b>Agent 工具编排体系</b>：实现 6 种工具类型（Bing 联网搜索 / 小红书笔记 / 趋势报告 / RAG 知识库 / AI 生图 / 工作流），按 <b>tool_id 实时聚合</b>执行状态（STARTED → SUCCEEDED），多工具并发执行 + UI 联动（工具气泡 / 思考块 / 相关追问）</li>
-          <li>落地<b>ReAct 思考链 + Agent 状态机</b>：参考 ReAct 范式设计 THINKING → TOOL_CALLING → OBSERVATION → ANSWER → RELATED_QUESTIONS 五态流转，结合状态图条件路由思路实现多轮工具编排与 Human-in-the-loop 确认</li>
-          <li>构建<b>多协议 SSE 流式解析层</b>（双层架构）：Knodo（扁平 chunk）/ AgentPro BTY（三段式 conversation）/ BetterYeah 斑头雁（嵌套 delta + THINKING / TEXT / FUNCTION / RELATED_QUESTIONS）三种协议归一化为 <span class="hl">AgentStreamEvent</span>，新增供应商 UI 层零改动</li>
-          <li>实现<b>RAG 知识库检索</b>全链路：parseKnowledgeCardResults 解析向量命中段落、相似度评分、TOP N 排名，文件名 / 知识库名 / 段落内容 / 原文链接完整展示</li>
+          <li>设计并实现<b>Agent 事件消费层</b>：作为 3 家 Agent 供应商与前端 UI 之间的中间层，归一化多协议 SSE 事件流为 <span class="hl">AgentStreamEvent</span> 统一模型，支持 6 种工具类型（Bing 搜索 / 小红书笔记 / 趋势报告 / RAG 知识库 / AI 生图 / 工作流）并发消费，按 <b>tool_id 实时聚合</b>执行状态（STARTED → SUCCEEDED），多工具并发 + UI 联动（工具气泡 / 思考块 / 相关追问）</li>
+          <li>设计<b>事件驱动编排引擎</b>：参考 ReAct 范式将 AgentStreamEvent 映射为 THINKING → TOOL_CALLING → OBSERVATION → ANSWER → RELATED_QUESTIONS 五阶段，按事件类型增量更新对应字段（thinkingText / agentTools / text / relatedQuestions），SSE 保序简化状态管理</li>
+          <li>构建<b>多协议 SSE 流式解析层</b>（双层架构）：Knodo（扁平 chunk）/ AgentPro BTY（三段式 conversation）/ BetterYeah 斑头雁（嵌套 delta + THINKING / TEXT / FUNCTION / RELATED_QUESTIONS）三种协议归一化为 AgentStreamEvent，新增供应商 UI 层零改动</li>
+          <li>实现<b>RAG 检索结果消费</b>：parseKnowledgeCardResults 解析后端向量检索返回的命中段落、相似度评分、TOP N 排名，文件名 / 知识库名 / 段落内容 / 原文链接完整展示</li>
           <li>自主研发<b>多模型并行生图调度器</b>：对接 <b>Gemini / GPT / ComfyUI</b> 三大模型，SSE 逐帧分槽 + 用户取消状态机；buildAgentGenerateImageToolGroup 合并多条 generate_image 为一组 UI，队列管理（loading / waiting / done 三态），兼容 Markdown / URL / 数组 / 对象多格式图片解析</li>
           <li>基于 <b>onnxruntime-web 端侧推理</b>集成 Segment Anything 点击分割，配合 Canvas 标注引擎（画笔 / 橡皮擦 / 撤销重做 / DPR 高清）驱动 AI 局部重绘；Fabric.js 编辑器插件体系支撑海报编辑与 AI PPT 生成</li>
         </ul>
@@ -405,15 +405,15 @@
           <span class="role">前端负责人</span>
           <span class="date">2024.01 – 2025.03</span>
         </div>
-        <p class="pain">教育行业 AI 助手分散、备课授课链路割裂——主导构建覆盖「备课 – 授课 – 作业 – 学情」全链路的 AI 教学平台，管理后台 + 学生客户端双端系统，内置 <b>AI 助手管理与向量知识库</b>。</p>
+        <p class="pain">教育行业 AI 助手分散、备课授课链路割裂——主导构建覆盖「备课 – 授课 – 作业 – 学情」全链路的 AI 教学平台，管理后台 + 学生客户端双端系统，内置 <b>AI 助手管理与向量知识库配置闭环</b>。</p>
         <div class="chips">
-          <span class="chip hl">Vue 3</span><span class="chip hl">TypeScript</span><span class="chip hl">向量存储</span><span class="chip hl">SSE</span><span class="chip hl">Function Calling</span><span class="chip hl">RAG</span><span class="chip">Konva.js</span><span class="chip">md-editor-v3</span><span class="chip">KaTeX</span><span class="chip">vue-i18n</span>
+          <span class="chip hl">Vue 3</span><span class="chip hl">TypeScript</span><span class="chip hl">向量存储</span><span class="chip hl">RAG</span><span class="chip">Konva.js</span><span class="chip">md-editor-v3</span><span class="chip">KaTeX</span><span class="chip">vue-i18n</span>
         </div>
         <ul>
-          <li>设计<b>AI 助手 Agent 编排体系</b>：将向量知识库、AI 绘画、OCR 批改等能力封装为 <b>Function Calling 工具</b>，构建多轮 Agent 对话系统，支持教师自定义助手人设、知识源与工具组合</li>
-          <li>设计<b>向量存储管理闭环</b>：向量库创建 / 更新 / 删除、文件上传入库、向量库 ↔ AI 助手关联；助手分类与示例管理，支撑教师自定义 AI 助手知识源</li>
+          <li>设计<b>AI 助手配置管理闭环</b>：后端将向量知识库、AI 绘画、OCR 批改注册为 Function Calling 工具，前端实现助手人设自定义、知识源关联与工具组合的配置界面</li>
+          <li>设计<b>向量存储管理闭环</b>：向量库创建 / 更新 / 删除、文件上传入库、向量库 ↔ AI 助手关联（11 个 API 端点）；助手分类与示例管理，支撑教师自定义 AI 助手知识源</li>
           <li>实现<b>AI 绘画并发排队系统</b>：排队位置实时查询（imageQueueApi）、16 种学科风格模板、画作历史记录与详情管理</li>
-          <li><b>SSE 流式对话系统</b>：逐字输出、Markdown + LaTeX 实时渲染（LaTeX 转义规范化）、断线自动重连，弱网场景对话不中断</li>
+          <li><b>对话系统</b>：Markdown + LaTeX 实时渲染（LaTeX 转义规范化）、失败自动重试，弱网场景对话不中断</li>
           <li>打通百度云 OCR 拍照录题全流程：客观题自动评分、主观题辅助批改，作业处理效率提升 <span class="hl">50%</span>；AI 题目生成按年级 + 学科定向输出</li>
         </ul>
       </div>
@@ -491,9 +491,9 @@
       <div class="cap reveal">
         <div class="cap-head">
           <div class="cap-icon">⚡</div>
-          <div class="cap-title">Agent 工具编排</div>
+          <div class="cap-title">Agent 事件消费</div>
         </div>
-        <div class="cap-desc">6 种工具类型并发执行，tool_id 实时聚合状态，多工具 UI 联动</div>
+        <div class="cap-desc">6 种工具类型并发消费，tool_id 实时聚合状态，多工具 UI 联动</div>
         <div class="cap-list">
           <span>Bing 联网搜索</span><span>小红书笔记</span><span>趋势报告</span><span>RAG 知识库</span><span>AI 生图</span><span>工作流 flow</span><span>工具气泡</span><span>思考块</span><span>相关追问</span>
         </div>
