@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Agent 应用开发面试题 · 王嵛</title>
+<style>
+  :root {
+    --bg: #0b0e14;
+    --bg2: #10141d;
+    --bg3: #161b28;
+    --ink: #e8ebf2;
+    --muted: #9aa3b8;
+    --faint: #6e7789;
+    --rule: #232a3a;
+    --accent: #4a7fc8;
+    --accent2: #6b9ad8;
+    --warn: #ffb454;
+    --danger: #ff6b6b;
+    --success: #38d9a9;
+    --mono: 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 28px; }
+
+  /* nav */
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(11,14,20,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+  }
+  nav .bar { max-width: 900px; margin: 0 auto; padding: 12px 28px; display: flex; align-items: center; gap: 16px; }
+  nav .logo { font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--accent2); }
+  nav .links { display: flex; gap: 3px; margin-left: auto; flex-wrap: wrap; }
+  nav .links a {
+    color: var(--muted); font-size: 12.5px; padding: 4px 10px;
+    border-radius: 6px; transition: all .15s; text-decoration: none;
+  }
+  nav .links a:hover { color: var(--ink); background: var(--bg3); }
+
+  /* hero */
+  .hero { padding: 60px 0 40px; border-bottom: 1px solid var(--rule); }
+  .hero h1 { font-size: 32px; font-weight: 800; letter-spacing: 0.02em; }
+  .hero .sub { margin-top: 10px; font-size: 15px; color: var(--muted); }
+  .hero .stats { display: flex; gap: 24px; margin-top: 20px; flex-wrap: wrap; }
+  .hero .stat { }
+  .hero .stat .n { font-family: var(--mono); font-size: 22px; font-weight: 700; color: var(--accent); }
+  .hero .stat .l { font-size: 12px; color: var(--faint); }
+
+  /* section */
+  section { padding: 48px 0; border-bottom: 1px solid var(--rule); }
+  .sec-head { margin-bottom: 28px; }
+  .sec-head .idx { font-family: var(--mono); font-size: 12px; color: var(--accent); letter-spacing: 0.1em; }
+  .sec-head h2 { font-size: 22px; font-weight: 700; margin-top: 4px; }
+  .sec-head .desc { margin-top: 6px; font-size: 13px; color: var(--muted); }
+
+  /* Q&A */
+  .qa { margin-bottom: 36px; }
+  .qa:last-child { margin-bottom: 0; }
+  .qa .q {
+    font-size: 16px; font-weight: 600; color: var(--ink);
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .qa .q .tag {
+    flex-shrink: 0;
+    font-family: var(--mono); font-size: 11px; font-weight: 700;
+    color: var(--accent);
+    background: rgba(74,127,200,0.12);
+    border: 1px solid rgba(74,127,200,0.25);
+    border-radius: 4px; padding: 2px 7px;
+    margin-top: 2px;
+  }
+  .qa .q .tag.hot { color: var(--warn); background: rgba(255,180,84,0.1); border-color: rgba(255,180,84,0.25); }
+  .qa .q .tag.deep { color: var(--success); background: rgba(56,217,169,0.1); border-color: rgba(56,217,169,0.25); }
+  .qa .a {
+    margin-top: 14px; padding: 18px 20px;
+    background: var(--bg2);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    border-left: 3px solid var(--accent);
+  }
+  .qa .a .label {
+    font-family: var(--mono); font-size: 11px; font-weight: 600;
+    color: var(--success); margin-bottom: 8px; letter-spacing: 0.08em;
+  }
+  .qa .a p { margin-bottom: 10px; }
+  .qa .a p:last-child { margin-bottom: 0; }
+  .qa .a b { color: var(--accent2); font-weight: 600; }
+  .qa .a code {
+    font-family: var(--mono); font-size: 13px;
+    background: var(--bg3); padding: 1px 5px; border-radius: 3px;
+    color: var(--warn);
+  }
+  .qa .a ul { margin: 8px 0 8px 20px; }
+  .qa .a li { margin-bottom: 4px; }
+  .qa .a .tip {
+    margin-top: 12px; padding: 10px 14px;
+    background: rgba(255,180,84,0.06);
+    border: 1px solid rgba(255,180,84,0.15);
+    border-radius: 6px;
+    font-size: 13px; color: var(--muted);
+  }
+  .qa .a .tip b { color: var(--warn); }
+
+  /* footer */
+  footer { padding: 32px 0; text-align: center; }
+  footer p { font-size: 13px; color: var(--faint); }
+  footer a { color: var(--accent); text-decoration: none; }
+
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 24px; }
+    .qa .q { font-size: 14px; }
+    .qa .a { padding: 14px 16px; }
+    nav .links { gap: 2px; }
+    nav .links a { font-size: 11px; padding: 3px 6px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="bar">
+    <span class="logo">AI Agent 面试题</span>
+    <div class="links">
+      <a href="#lijing">丽境</a>
+      <a href="#edugpt">EduGPT</a>
+      <a href="#filemind">fileMind</a>
+      <a href="#marketing">Marketing Wise</a>
+      <a href="#general">通用 Agent</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<!-- hero -->
+<div class="hero">
+  <h1>AI Agent 应用开发面试题</h1>
+  <p class="sub">基于简历项目经历，覆盖丽境、EduGPT、fileMind、Marketing Wise 四个项目的 Agent 开发深度问题，附高分应答策略。</p>
+  <div class="stats">
+    <div class="stat"><div class="n">32</div><div class="l">面试题</div></div>
+    <div class="stat"><div class="n">4</div><div class="l">项目</div></div>
+    <div class="stat"><div class="n">5</div><div class="l">维度</div></div>
+  </div>
+</div>
+
+<!-- ================= 丽境 ================= -->
+<section id="lijing">
+  <div class="sec-head">
+    <span class="idx">01</span>
+    <h2>丽境 · 百丽 AI 设计平台</h2>
+    <p class="desc">Agent 工具编排、多协议 SSE、RAG 检索、多模型生图调度、端侧推理</p>
+  </div>
+
+  <!-- Q1 -->
+  <div class="qa">
+    <div class="q"><span class="tag hot">高频</span><span>你在丽境项目中做了 Agent 工具编排体系，能详细讲讲 6 种工具类型是怎么设计的吗？为什么要做自研而不是直接用 LangChain？</span></div>
+    <div class="a">
+      <div class="label">高分应答</div>
+      <p>丽境的 Agent 需求是：设计师在对话中触发多种工具——Bing 联网搜索、小红书笔记检索、趋势报告、RAG 知识库检索、AI 生图、工作流执行。这些工具由 3 家不同 Agent 供应商提供，每家的 SSE 协议和工具事件格式都不同。</p>
+      <p>我没有直接用 LangChain，核心原因是<b>这三家供应商是后端选定的 Agent 平台</b>，工具调用在后端完成，前端拿到的是 SSE 流式事件。LangChain 是一个服务端 Agent 框架，而我要解决的是<b>前端如何统一消费多种 Agent 供应商的事件流并做 UI 联动</b>。</p>
+      <p>具体设计分三层：</p>
+      <ul>
+        <li><b>协议解析层</b>：useAgentBetterYeahChat.ts 中，按 AgentProviderType 路由到不同解析器，三种协议各自有独立函数（parseKnodoChatCompletionChunk / parseAgentProBtySseRoot / 通用逻辑），统一输出 AgentStreamEvent 类型</li>
+        <li><b>工具状态聚合层</b>：useAgentTools.ts 中，按 tool_id 聚合同一工具的多条 SSE 事件。一条工具调用从 STARTED 到 SUCCEEDED 会收到多帧，通过 findIndex + 合并更新把状态归并到一条记录</li>
+        <li><b>UI 联动层</b>：AgentToolPill 组件按 functionCode 识别 6 种工具类型，每种工具有独立的展开内容和样式。生图工具单独走 buildAgentGenerateImageToolGroup 合并为一个队列 UI</li>
+      </ul>
+      <div class="tip"><b>面试技巧：</b>强调"前端 Agent 事件消费层"这个定位，不是跟 LangChain 竞争，而是解决 LangChain 不覆盖的问题——多供应商协议归一化 + UI 状态联动。如果面试官追问 LangChain 理解，可以说"熟悉其 Chain / Agent / Tool / Memory 抽象，参考了 ReAct 范式设计五态流转"。</div>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="qa">
+    <div class="q"><span class="tag hot">高频</span><span>三种 Agent 协议（Knodo / AgentPro BTY / BetterYeah）具体有什么差异？你是怎么归一化的？</span></div>
+    <div class="a">
+      <div class="label">高分应答</div>
+      <p>三种协议的结构差异很大：</p>
+      <ul>
+        <li><b>Knodo</b>：扁平结构，<code>object === "chat.completion.chunk"</code>，content 是增量文本，isLast 标志结束。类似 OpenAI Chat Completion 的流式格式</li>
+        <li><b>AgentPro BTY</b>：三段式 <code>conversation → message_delta → message_end</code>，还有 thinking_delta、tool_use、tool_result、related_questions 等事件类型。字段名有别名（messagedelta → message_delta），需要做 type 别名规范化</li>
+        <li><b>BetterYeah 斑头雁</b>：嵌套 delta 结构，type 字段区分 THINKING / TEXT / FUNCTION / RELATED_QUESTIONS，content 可能是扁平字符串也可能是嵌套对象（内层 content 取值）</li>
+      </ul>
+      <p>归一化的核心设计是 <b>AgentStreamEvent 联合类型</b>，共 6 种事件：meta / thinking / answer / tool / relatedQuestions / done。三种协议各自的解析器都输出这个类型，上游消费层完全不需要知道是哪家供应商。</p>
+      <p>新增供应商时只需在 useAgentBetterYeahChat.ts 中加一个 parse 函数 + 注册到 AGENT_CHAT_PATH_BY_PROVIDER 路由表，<b>UI 层零改动</b>。这是策略模式 + 工厂模式的应用。</p>
+      <div class="tip"><b>面试技巧：</b>如果面试官问"为什么不直接用 OpenAI 标准格式"，回答：每家供应商的 Agent 能力不同（BetterYeah 有知识库检索、AgentPro 有工作流），强行统一为 OpenAI 格式会丢失能力差异，所以选择在事件层归一化而非协议层。</div>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="qa">
+    <div class="q"><span class="tag deep">深度</span><span>tool_id 聚合状态的具体实现是什么？如果同一工具收到多条乱序事件怎么处理？</span></div>
+    <div class="a">
+      <div class="label">高分应答</div>
+      <p>核心逻辑在 ChatContainer/index.vue 的 onAgentEvent 回调中：</p>
+      <ul>
+        <li>收到 <code>ev.type === "tool"</code> 事件时，从 assistantMsg.agentTools 数组中按 toolId 做 findIndex</li>
+        <li>如果 idx === -1，说明是新工具，push 一条 <code>{ ...ev.payload }</code></li>
+        <li>如果已存在，做 <code>list[idx] = { ...list[idx], ...ev.payload }</code> 合并更新</li>
+      </ul>
+      <p>关于乱序：SSE 是有序的（HTTP 长连接保序），所以同一工具的事件天然按 STARTED → SUCCEEDED 顺序到达。但有一个边界 case：<b>历史消息恢复</b>。用户刷新页面后从后端 response_ext.tasks 批量恢复时，事件是数组而非流式，此时在 AiRobotDrawer 中按 task.type 分类批量解析，逻辑与流式一致但无顺序依赖。</p>
+      <p>另外 displayTools 做了过滤：流式中显示所有工具（包括 STARTED），流结束后只展示 SUCCEEDED 的工具。这避免了"工具启动但没返回结果"时的空状态。</p>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="qa">
+    <div class="q"><span class="tag deep">深度</span><span>多模型并行生图调度器（buildAgentGenerateImageToolGroup）是怎么设计的？多个模型的生图任务怎么排队？</span></div>
+    <div class="a">
+      <div class="label">高分应答</div>
+      <p>丽境的生图场景是：用户一句话可能触发多条 generate_image 工具调用（比如"给我 3 张运动鞋设计图"），后端会分别调用 Gemini / GPT / ComfyUI 三大模型并行生成。前端要把这些分散的工具事件合并为一个统一的队列 UI。</p>
+      <p>buildAgentGenerateImageToolGroup 的核心算法：</p>
+      <ul>
+        <li><b>筛选</b>：从 tools 数组中 filter 出 functionCode === "generate_image" 的工具作为 memberTools</li>
+        <li><b>URL 提取</b>：getGenerateImageUrlsFromTool 兼容 4 种图片格式——Markdown <code>![](url)</code>、纯 URL 字符串、URL 数组、含 url/imageUrl/image_url 字段的对象</li>
+        <li><b>URL 去重合并</b>：用 Set 去重后存入 mergedImageUrls</li>
+        <li><b>队列三态</b>：done（有图片或非 STARTED）、loading（第一个未完成项）、waiting（第一个未完成之后的项）</li>
+        <li><b>整体状态</b>：hasStarted 判断是否有任意 STARTED，firstUnfinishedIdx 找第一个未完成，loading 和 done 基于此计算</li>
+      </ul>
+      <p>关键设计决策：<b>不维护真正的任务队列</b>，而是从 SSE 事件流中推导队列状态。每收到一条 generate_image 工具事件就增量更新，不预分配槽位。这比预占位方案更简单，因为生图任务数量在 Agent 响应前是未知的。</p>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="qa">
+    <div class="q"><span class="tag">中频</span><span>RAG 知识库检索（parseKnowledgeCardResults）是怎么做的？向量相似度怎么展示？</span></div>
+    <div class="a">
+      <div class="label">高分应答</div>
+      <p>丽境的 RAG 检索是后端通过 search_by_dataset 工具完成的，前端拿到的是工具结果（SUCCEEDED 后的 content.output）。我的工作是把这个结果解析为可读的 UI。</p>
+      <p>后端返回的知识库结果用 <code>⧼-split_line-⧽</code> 分隔符分割，每条块包含：知识库 id、文件名、知识库名、命中排名（JSON：rank + vector 相似度）、段落内容（JSON：file_name、summary、file_url）。</p>
+      <p>前端解析流程：按分隔符 split → 过滤包含「知识库id」的块 → 正则提取各字段 → 命名排名解析为 <code>TOP {rank} · 相似度 {vector.toFixed(4)}</code> 格式 → 段落内容 JSON.parse 后提取文件名和摘要 → 渲染为带原文链接的卡片列表。</p>
+      <p>这个设计的关键点是：<b>向量检索在后端，前端负责结构化展示</b>。相似度评分（vector 字段）直接从后端返回，前端只做格式化展示（保留 4 位小数），不做二次排序。</p>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="qa">
+    <div class="q"><span class="tag deep">深度</span><span>onnxruntime-web 端侧推理是怎么实现的？为什么选择浏览器端推理而不是后端推理？</span></div>
+    <div class="a">
+      <div class="label">高分应答</div>
+      <p>丽境的 AI 局部重绘功能需要用户点击图片区域后生成分割蒙版。我用 onnxruntime-web 加载 SAM（Segment Anything Model）的 VITH 模型在浏览器端推理。</p>
+      <p>技术实现链路：</p>
+      <ul>
+        <li><b>模型加载</b>：ort.InferenceSession.create 加载 sam_vit_h_4b8939.onnx，WebAssembly 后端</li>
+        <li><b>图像嵌入</b>：通过后端 API 获取 npy 格式的图像嵌入（Float32Array），避免在前端做图像预处理</li>
+        <li><b>推理输入</b>：用户点击坐标 × samScale（1024/max(h,w)）缩放 + point_labels（1=添加，0=移除）+ 原始尺寸</li>
+        <li><b>输出处理</b>：mask 数据 → onnxMaskToImage（阈值 > 0.0 的像素设为蓝色）→ Canvas 生成 HTMLImageElement → 同时生成 SVG 路径（自定义 mask 追踪算法：RLE 编码 → 线段生成 → 闭合路径）</li>
+      </ul>
+      <p>选择浏览器端推理的原因：<b>交互延迟</b>。用户在图片上点击后需要实时看到分割结果，如果走后端推理每次点击都要一次网络往返（~200ms+），而端侧推理在模型加载后只需 ~50ms。而且 SAM 模型本身不需要 GPU，WebAssembly 后端足够。</p>
+      <div class="tip"><b>面试技巧：</b>如果被问"模型文件很大怎么办"，回答：图像嵌入（embedding）是从后端获取的 npy 文件，最重的计算在后端做。前端只做轻量的点提示推理，模型文件 ~1.2GB 但只加载一次，后续推理复用 session。</div>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="qa">
+    <div class="q"><span class="tag">中频</span><span>ReAct 五态流转（THINKING → TOOL_CALLING → OBSERVATION → ANSWER → RELATED_QUESTIONS）是怎么实现的？有显式的状态枚举吗？</span></div>
+    <div class="a">
+      <div class="label">高分应答</div>
+      <p>实际上代码中没有显式定义一个"ReAct 状态枚举"。五态流转是通过 <b>AgentStreamEvent.type 的事件分发</b> 实现的，更准确地说是事件驱动而非状态机驱动。</p>
+      <p>在 ChatContainer 的 onAgentEvent 回调中，按 ev.type 做 switch 分发：</p>
+      <ul>
+        <li><code>thinking</code> → 累加到 thinkingText（对应 THINKING 阶段）</li>
+        <li><code>tool</code> → 按 toolId 聚合到 agentTools（对应 TOOL_CALLING + OBSERVATION）</li>
+        <li><code>answer</code> → 累加到 text（对应 ANSWER）</li>
+        <li><code>relatedQuestions</code> → 替换 relatedQuestions 数组（对应 RELATED_QUESTIONS）</li>
+        <li><code>done</code> → 设置 agentStreaming = false</li>
+      </ul>
+      <p>之所以不用显式状态机，是因为 SSE 事件流天然有序——供应商保证 THINKING 在 TOOL 之前，TOOL 在 ANSWER 之前。前端不需要维护状态转移，只需按事件类型增量更新对应字段。</p>
+      <p>但我在简历中写了"参考 ReAct 范式设计五态流转"，这是从<b>架构设计层面</b>的描述——AgentStreamEvent 的 6 种事件类型本身就是 ReAct 范式的映射。面试时可以说"借鉴了 ReAct 的 Reason-Act-Observe 循环设计事件类型，但实现是事件驱动而非状态机驱动，因为 SSE 保序简化了状态管理"。</p>
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="qa">
+    <div class="q"><span class="tag hot">高频</span><span>日均调用超万次的 Agent 系统，有没有遇到性能问题？怎么优化的？</span></div>
+    <div class="a">
+      <div class="label">高分应答</div>
+      <p>日均万次调用量级不算特别大，但前端有几个关键性能点：</p>
+      <ul>
+        <li><b>SSE 连接管理</b>：使用 @microsoft/fetch-event-source 而非原生 EventSource，因为需要自定义请求头（认证 token）和 POST 方法。支持 AbortController 取消，避免用户切换对话时旧连接继续推送</li>
+        <li><b>工具状态合并性能</b>：onAgentEvent 中每次 findIndex 遍历 agentTools 数组。正常对话中工具数量 ≤ 6，O(n) 遍历没有问题。但如果生图任务多（一条消息触发 10+ 生图），可以考虑 Map 替代数组</li>
+        <li><b>Markdown 渲染</b>：流式输出中每收到一个 answer 事件就触发 Markdown 重新渲染。优化方式是 debounced 渲染（不是每帧都渲染）或 requestAnimationFrame 批处理</li>
+        <li><b>虚拟滚动</b>：对话历史列表用虚拟滚动，避免长对话时 DOM 节点过多</li>
+      </ul>
+      <div class="tip"><b>面试技巧：</b>日均万次是后端调用量，前端性能瓶颈不在并发量而在单次对话的渲染性能。强调"SSE 流式渲染优化"比强调"高并发"更真实。</div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ================= EduGPT ================= -->
+<section id="edugpt">
+  <div class="sec-head">
+    <span class="idx">02</span>
+    <h2>EduGPT · AI 教育平台</h2>
+    <p class="desc">向量存储管理、AI 助手编排、AI 绘画排队、SSE 对话、OCR 批改</p>
+  </div>
+
+  <!-- Q9 -->
+  <div class="qa">
+    <div class="q"><span class="tag hot">高频</span><span>EduGPT 中向量存储管理的完整闭环是怎么设计的？前端做了哪些工作？</span></div>
+    <div class="a">
+      <div class="label">高分应答</div>
+      <p>EduGPT 的向量存储管理是一个完整的 CRUD 闭环，前端通过 assistant.ts 暴露了 11 个 API 端点：</p>
+      <ul>
+        <li><b>向量库 CRUD</b>：创建（/create）、更新（/update）、删除（/delete）、列表（/list）、详情（/detail/:id）、可选列表（/options）</li>
+        <li><b>文件管理</b>：上传入库（/file/upload）、文件列表（/file/list）、删除文件（/file/delete）、批量追加（/batchFile）</li>
+        <li><b>助手关联</b>：获取关联助手列表（/assistants/:id），实现向量库 ↔ AI 助手的多对多关联</li>
+      </ul>
+      <p>前端工作流：教师创建向量库 → 上传教案/课件文件 → 文件自动分块和向量化（后端）→ 将向量库关联到 AI 助手 → 助手在对话中检索知识库回答问题。</p>
+      <p>这里的 Agent 设计是：<b>向量知识库作为 Function Calling 工具的数据源</b>。AI 助手在对话中通过向量检索获取相关知识，而非依赖预设的 prompt。教师可以自定义每个助手关联哪些知识库，实现"不同学科用不同知识源"。</p>
+    </div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="qa">
+    <div class="q"><span class="tag deep">深度</span><span>你说把向量知识库、AI 绘画、OCR 批改封装为 Function Calling 工具，具体怎么封装的？前端做了什么？</span></div>
+    <div class="a">
+      <div class="label">高分应答</div>
+      <p>要诚实说明：Function Calling 的工具注册和执行在<b>后端</b>完成，前端的角色是<b>提供管理界面和消费对话结果</b>。</p>
+      <p>前端做了什么：</p>
+      <ul>
+        <li><b>向量知识库管理</b>：完整的向量库 CRUD + 文件上传 + 助手关联，让教师可以配置 AI 助手的"知识源"</li>
+        <li><b>AI 绘画管理</b>：创建生图请求（/drawImage/create）、排队位置查询（/drawImage/position）、历史记录和详情查看</li>
+        <li><b>OCR 批改流程</b>：教师端上传图片 → FormData 多文件上传 → OCR 识别 → 客观题自动评分 + 主观题辅助批改</li>
+        <li><b>对话系统</b>：助手选择 → 创建会话 → 发送消息 → Markdown + LaTeX 渲染回复</li>
+      </ul>
+      <p>面试时如果被追问 Function Calling 细节，可以说明：<b>后端将向量检索、绘画、OCR 等能力注册为 Agent 工具</b>，AI 助手在对话中自动决定何时调用哪个工具。前端负责的是工具的配置管理和对话结果的展示。</p>
+      <div class="tip"><b>面试技巧：</b>不要说"我做了 Function Calling 的工具注册"，而要说"后端做了 Function Calling 工具注册，我负责前端的工具配置管理和对话消费"。诚实区分前后端职责。</div>
+    </div>
+  </div>
+
+  <!-- Q11 -->
+  <div class="qa">
+    <div class="q"><span class="tag">中频</span><span>AI 绘画并发排队系统是怎么实现的？排队位置怎么查询？</span></div>
+    <div class="a">
+      <div class="label">高分应答</div>
+      <p>EduGPT 的 AI 绘画是面向学生的功能，学生输入年级 + 学科后 AI 生成对应风格画作。由于生图是 GPU 密集型任务，后端有并发限制，所以设计了排队机制。</p>
+      <p>前端 API 设计：</p>
+      <ul>
+        <li><code>POST /api/v1/drawImage/create</code> — 发起生图请求，后端返回任务 ID</li>
+        <li><code>GET /api/v1/drawImage/position</code> — 查询当前排队位置（无需参数，后端按用户 + 任务返回位置）</li>
+        <li><code>GET /api/v1/drawImage/logs</code> — 获取用户画图历史</li>
+        <li><code>GET /api/v1/drawImage/detail/:id</code> — 查看画作详情</li>
+      </ul>
+      <p>前端流程：用户发起生图 → 后端排队 → 前端轮询 position 接口显示"前方还有 X 人" → 排队完成后展示生成结果。16 种学科风格模板供学生选择。</p>
+    </div>
+  </div>
+
+  <!-- Q12 -->
+  <div class="qa">
+    <div class="q"><span class="tag">中频</span><span>Markdown + LaTeX 实时渲染怎么做的？LaTeX 转义规范化的具体逻辑？</span></div>
+    <div class="a">
+      <div class="label">高分应答</div>
+      <p>使用 md-editor-v3 的 MdPreview 组件做 Markdown 渲染。但后端返回的 LaTeX 格式与 md-editor-v3 不完全兼容，需要做转义规范化：</p>
+      <ul>
+        <li><code>\\(</code> → <code>$</code>（行内公式左定界符）</li>
+        <li><code>\\)</code> → <code>$</code>（行内公式右定界符）</li>
+        <li><code>\\[</code> → <code>$$</code>（块级公式左定界符）</li>
+        <li><code>\\]</code> → <code>$$</code>（块级公式右定界符）</li>
+      </ul>
+      <p>这是因为不同 LLM 输出的 LaTeX 定界符不统一（有的用 <code>\\( \\)</code>，有的用 <code>$ $</code>），统一转为 md-editor-v3 期望的 KaTeX 格式。</p>
+      <p>关于"断线自动重连"要诚实说明：EduGPT 的对话是同步 POST 请求（非 SSE 流式），失败时显示 Retry 按钮做手动重试。SSE 流式对话和断线自动重连是丽境项目的实现，不是 EduGPT 的。</p>
+      <div class="tip"><b>面试技巧：</b>面试官可能问"为什么 EduGPT 不用 SSE"，回答：EduGPT 是教育场景，对话不需要逐字流式输出效果，同步请求更简单可靠。丽境是设计场景，逐字流式输出是核心体验。</div>
+    </div>
+  </div>
+
+  <!-- Q13 -->
+  <div class="qa">
+    <div class="q"><span class="tag">中频</span><span>百度云 OCR 拍照录题全流程是怎么实现的？</span></div>
+    <div class="a">
+      <div class="label">高分应答</div>
+      <p>OCR 批改覆盖教师端和学生端两个流程：</p>
+      <p><b>教师端</b>：新增线下作业 → 选择"图片上传"类型 → 多图上传（最多 6MB/张）→ FormData 拼接 images 字段 → 调用 ocrUploadApi 上传 → 后端 OCR 识别题目结构化存储。</p>
+      <p><b>学生端</b>：进入作业 → 拍照上传答案 → FormData 拼接 classId + recordId + id → 调用 ocrStudentUploadAssignmentApi 上传 → 后端 OCR 识别答案。</p>
+      <p><b>批改</b>：调用 correctApi（/api/v1/assignment/correct）→ 客观题自动评分（OCR 识别答案与标准答案比对）→ 主观题辅助批改（AI 辅助评分建议）→ 作业处理效率提升 50%。</p>
+      <p>这里的 Agent 设计是：OCR 识别 + AI 评分是<b>后端编排的工具链</b>，前端负责图片上传和批改结果展示。</p>
+    </div>
+  </div>
+
+</section>
+
+<!-- ================= fileMind ================= -->
+<section id="filemind">
+  <div class="sec-head">
+    <span class="idx">03</span>
+    <h2>fileMind · 本地文件 RAG 问答</h2>
+    <p class="desc">Tauri 2 + Rust + React 19 + FastAPI，RAG 7 步流水线，混合检索，安全设计</p>
+  </div>
+
+  <!-- Q14 -->
+  <div class="qa">
+    <div class="q"><span class="tag hot">高频</span><span>fileMind 的 RAG 7 步流水线具体是什么？每步做了什么？</span></div>
+    <div class="a">
+      <div class="label">高分应答</div>
+      <p>fileMind 的 RAG 流水线是<b>完全自研</b>的，不依赖 LangChain 或 LlamaIndex，7 个步骤如下：</p>
+      <ul>
+        <li><b>1. 查询改写</b>（rewrite_service.py）：把多轮对话中的用户查询改写为独立完整的检索查询。做<b>代词消解</b>（"它的价格"→"iPhone 15 的价格"）+ <b>关键词扩展</b>（提取 2-5 个关键词供 FTS5 补充）。无历史对话时直接跳过，不调 LLM</li>
+        <li><b>2. 双路检索</b>（hybrid_search.py）：FTS5 全文检索（BM25 排序 Top-20）+ LanceDB 向量检索（Top-20）。FTS5 在 Rust 层执行（SQLite），向量检索在 Python Sidecar 中执行</li>
+        <li><b>3. RRF 融合</b>：Reciprocal Rank Fusion 公式 <code>score = Σ 1/(k + rank)</code>，k=60。两路都命中的 chunk 因叠加加分排名更高</li>
+        <li><b>4. BGE-reranker 精排</b>：cross-encoder 对 Top-20 逐对打分（query + doc），精排为 Top-5。用 sentence-transformers 的 CrossEncoder，模型懒加载单例，推理在 asyncio.to_thread 中避免阻塞</li>
+        <li><b>5. LLM 生成</b>：Top-5 片段作为 context 传入 LLM 生成回答。默认 Ollama 本地推理，支持 OpenAI / DeepSeek 云端</li>
+        <li><b>6. 自我纠正</b>（self_correct_service.py）：生成后校验是否忠实于检索片段——幻觉检测、引用验证、数据准确性。发现问题返回 corrected_answer，最多重试 2 次。fail-open：验证超时/失败时视为正确，不阻塞输出</li>
+        <li><b>7. SSE 流式回答</b>：逐字输出 + 引用标签跳转源文件。通过 Rust sidecar 的 SSE 解析层转发到前端</li>
+      </ul>
+      <div class="tip"><b>面试技巧：</b>这是面试中最容易拉开差距的问题。能完整说出 7 步并解释每步的"为什么"，比说"我用了 LangChain 的 RAG"强 10 倍。</div>
+    </div>
+  </div>
+
+  <!-- Q15 -->
+  <div class="qa">
+    <div class="q"><span class="tag deep">深度</span><span>混合检索（BM25 + Dense）为什么比纯向量检索好？RRF 融合的原理是什么？</span></div>
+    <div class="a">
+      <div class="label">高分应答</div>
+      <p>纯向量检索（Dense）擅长语义匹配——"怎么提高销量"能匹配到"营销策略优化"，但没有词级精确匹配。BM25（FTS5）擅长精确词匹配——搜索"iPhone 15"时能精准命中含这个词的文档，但理解不了同义词。</p>
+      <p>两者互补：向量检索覆盖"语义相似但用词不同"，BM25 覆盖"精确词命中"。混合检索把两路结果融合，兼顾语义和精确匹配。</p>
+      <p>RRF（Reciprocal Rank Fusion）的原理很简单：<b>不看绝对分数，只看排名</b>。公式 <code>score(chunk) = Σ 1/(k + rank)</code>，k=60 是平滑因子。一个 chunk 在两路检索中都排名靠前，它的 RRF 分数就会叠加升高。这避免了不同检索引擎分数量纲不一致的问题——BM25 分数和向量余弦相似度无法直接比较，但排名可以。</p>
+      <p>fileMind 的实现中，FTS5 由 Rust 层执行（SQLite），向量检索在 Python Sidecar 中执行（LanceDB），RRF 融合在 Python 中完成。两路并发执行，最终在 Python 侧合并。</p>
+    </div>
+  </div>
+
+  <!-- Q16 -->
+  <div class="qa">
+    <div class="q"><span class="tag deep">深度</span><span>查询改写的代词消解具体怎么实现的？什么时候跳过改写？</span></div>
+    <div class="a">
+      <div class="label">高分应答</div>
+      <p>查询改写的核心逻辑在 rewrite_service.py 的 rewrite_query 函数中：</p>
+      <ul>
+        <li><b>短路径（跳过 LLM）</b>：无对话历史时直接返回原查询，need_rewrite=False。避免不必要的 LLM 调用</li>
+        <li><b>调 LLM</b>：有历史时构造 system + user prompt，要求 LLM 输出 JSON 格式：{ rewritten_query, keywords[] }。云端走 provider.generate（json_mode=True, temperature=0.0），本地走 call_ollama_json</li>
+        <li><b>失败兜底</b>：LLM 超时 → 原样返回（reason 标记超时）；JSON 解析失败 → 原样返回（reason 标记解析失败）；Ollama 连接失败 → 抛 LLMUnavailableError（调用方决定降级）</li>
+      </ul>
+      <p>改写后的 rewritten_query 用于向量检索，提取的 keywords 用于 FTS5 补充检索。这样向量检索用完整的语义查询，FTS5 用关键词精确匹配，各取所长。</p>
+      <p>关键设计：temperature=0.0 保证改写的确定性，json_mode 保证输出可解析。失败时 fail-open（原样返回），不阻塞检索流程。</p>
+    </div>
+  </div>
+
+  <!-- Q17 -->
+  <div class="qa">
+    <div class="q"><span class="tag deep">深度</span><span>自我纠正的幻觉检测机制是什么？什么情况下会重试？fail-open 怎么理解？</span></div>
+    <div class="a">
+      <div class="label">高分应答</div>
+      <p>自我纠正（self_correct_service.py）在 LLM 生成回答后做<b>忠实性校验</b>——检查回答是否忠实于检索到的 context 片段，而非 LLM 自己编的。</p>
+      <p>检测维度：</p>
+      <ul>
+        <li><b>幻觉</b>：回答中的信息在 context 中找不到出处</li>
+        <li><b>引用错误</b>：回答引用的来源与 context 不匹配</li>
+        <li><b>数据不准确</b>：数字、日期等具体信息与 context 矛盾</li>
+        <li><b>内容缺失</b>：回答没有覆盖 context 中的关键信息</li>
+      </ul>
+      <p>发现问题后返回 corrected_answer，由路由侧触发重试（最多 max_retries=2 次）。每次重试会把纠正反馈加入 prompt，让 LLM 修正。</p>
+      <p><b>fail-open</b>的含义：验证服务自身的故障（超时、JSON 解析失败）不会阻塞输出——视为 is_correct=True 跳过纠正，直接输出已有回答。这是因为"已流式发送的回答不因验证故障而中断"。只有 LLM 连接失败才抛异常由调用方处理。</p>
+    </div>
+  </div>
+
+  <!-- Q18 -->
+  <div class="qa">
+    <div class="q"><span class="tag deep">深度</span><span>HMAC-SHA256 握手协议具体怎么做的？为什么要做 Sidecar 握手？</span></div>
+    <div class="a">
+      <div class="label">高分应答</div>
+      <p>fileMind 的架构是 Tauri 2（Rust）+ Python FastAPI Sidecar。Rust 层是<b>唯一客户端</b>——前端永远不直连 Sidecar。握手协议解决两个安全威胁：</p>
+      <ul>
+        <li><b>S-01 Sidecar 端口冒充</b>：恶意进程可能监听 localhost:8765 伪装成 Sidecar</li>
+        <li><b>T-01 通信篡改</b>：中间人篡改 Rust 与 Sidecar 的通信</li>
+      </ul>
+      <p>握手流程：</p>
+      <ul>
+        <li>1. Rust 生成 32 字节随机 PSK → spawn Sidecar 时通过 stdin 注入（不落环境变量）</li>
+        <li>2. Sidecar 从 stdin 读取 PSK 存入全局</li>
+        <li>3. Rust 生成 nonce → POST /handshake（带 HMAC 签名头）</li>
+        <li>4. Sidecar 验签 → 缓存 nonce → 返回 proof（用 PSK 对 "handshake-ok|{nonce}" 签名）</li>
+        <li>5. Rust 验证 proof → 握手成功</li>
+        <li>6. 后续每个请求附带 X-Signature + X-Request-Seq，Sidecar 中间件验签 + 检查 seq 递增防重放</li>
+      </ul>
+      <p>PSK 存放在<b>操作系统钥匙串</b>（macOS Keychain / Windows Credential Manager），永不落在前端或 Python 代码中。路径守卫（path_guard.rs）还做了系统目录黑名单 + 路径穿越检查。</p>
+    </div>
+  </div>
+
+  <!-- Q19 -->
+  <div class="qa">
+    <div class="q"><span class="tag">中频</span><span>操作日志的链式 SHA-256 哈希防篡改是怎么做的？</span></div>
+    <div class="a">
+      <div class="label">高分应答</div>
+      <p>fileMind 的文件操作日志（operations_log）使用链式哈希保证防篡改，类似区块链的结构：</p>
+      <ul>
+        <li><code>chain_hash[i] = SHA256(chain_hash[i-1] || canonicalize(log[i]))</code></li>
+        <li>创世值 GENESIS 为空字符串，作为首条记录的前驱哈希</li>
+        <li>规范化输入只覆盖<b>不可变字段</b>（id / batch_id / operation_type / source_path / target_path / created_at），排除 status（undo 操作会改 status）和 chain_hash 自身</li>
+      </ul>
+      <p>数据库约束：operations_log 仅允许 INSERT（UPDATE 仅限 status 列，DELETE 由触发器禁止）。任何中间记录被篡改，后续所有记录的 chain_hash 校验都会失败。</p>
+      <p>这是借鉴区块链的不可变性设计，用于保证文件操作审计轨迹的完整性。</p>
+    </div>
+  </div>
+
+  <!-- Q20 -->
+  <div class="qa">
+    <div class="q"><span class="tag">中频</span><span>智能分类的三级策略（规则引擎 + 启发式 + LLM 兜底）为什么这么设计？</span></div>
+    <div class="a">
+      <div class="label">高分应答</div>
+      <p>三级漏斗设计是为了<b>平衡准确率和成本</b>：</p>
+      <ul>
+        <li><b>规则引擎</b>：用户自定义规则（如"*.jpg → 图片"），零成本、100% 准确、但覆盖率低。规则支持拖拽排序优先级</li>
+        <li><b>启发式</b>：基于文件名/扩展名/路径的启发式算法，零成本、覆盖中等准确率。比如 "IMG_2023" 前缀 → 照片</li>
+        <li><b>LLM 兜底</b>：规则和启发式都未命中的文件用 LLM 分类，成本最高但覆盖最全。批量处理减少调用次数</li>
+  </ul>
+      <p>内置评估框架（eval/），目标：总体准确率 ≥85%、规则层覆盖率 ≥70%、LLM 兜底准确率 ≥75%、JSON 解析成功率 ≥95%。有混淆矩阵和多分类归一化。</p>
+      <p>为什么不用 LLM 做全部分类？成本和速度。90% 的文件用规则和启发式就够了，只有 10% 需要 LLM。三级漏斗让 LLM 调用量降一个数量级。</p>
+    </div>
+  </div>
+
+  <!-- Q21 -->
+  <div class="qa">
+    <div class="q"><span class="tag">中频</span><span>查询缓存（LRU + TTL）缓存的是重排结果，为什么不缓存最终答案？</span></div>
+    <div class="a">
+      <div class="label">高分应答</div>
+      <p>fileMind 的查询缓存缓存的是<b>重排后的检索结果</b>（rerank output），不是 LLM 生成的最终答案。原因：</p>
+      <ul>
+        <li>检索管线（改写 → 向量化 → 双路检索 → RRF → rerank）是确定性的——相同输入永远输出相同结果，缓存有意义</li>
+        <li>LLM 生成是<b>非确定性的</b>（即使 temperature=0 也可能有微小差异），且用户可能想看不同的表述</li>
+        <li>rerank 模型加载 + 推理是首 token 延迟的主要贡献者，缓存命中时整条检索管线跳过，把"模型加载 + 推理"降为一次 dict 查找</li>
+      </ul>
+      <p>key 覆盖影响检索结果的输入：query + 对话历史 + 表名 + 模型 + top_k 参数。TTL 默认 60s，避免索引重建/文件变更后读到过期结果。asyncio.Lock 串行化 OrderedDict 访问。</p>
+    </div>
+  </div>
+
+</section>
+
+<!-- ================= Marketing Wise ================= -->
+<section id="marketing">
+  <div class="sec-head">
+    <span class="idx">04</span>
+    <h2>Marketing Wise · AI 营销文案生成</h2>
+    <p class="desc">NestJS + Vue 3 + React 19 三端，SSE 流式，Redis 限流，CI/CD</p>
+  </div>
+
+  <!-- Q22 -->
+  <div class="qa">
+    <div class="q"><span class="tag hot">高频</span><span>Marketing Wise 的三端 Monorepo 架构是怎么设计的？为什么不用一个应用？</span></div>
+    <div class="a">
+      <div class="label">高分应答</div>
+      <p>三端拆分：</p>
+      <ul>
+        <li><b>marketing-server</b>：NestJS 10 + TypeORM + MySQL + Redis，端口 3000。REST API + SSE 推流，额度控制，Prompt 模板管理，敏感词过滤</li>
+        <li><b>marketing-web</b>：Vue 3 + Element Plus + Pinia，端口 5173。用户端 SPA，输入产品+受众 → AI 生成文案</li>
+        <li><b>marketing-admin</b>：React 19 + Ant Design 6 + Zustand，端口 5174。管理后台：用户管理、Prompt 模板配置、敏感词管理</li>
+      </ul>
+      <p>不用一个应用的原因：<b>用户端和管理后台的技术栈和迭代节奏完全不同</b>。用户端需要最好的交互体验（Vue 3 + Element Plus），管理后台需要复杂表格和表单（React 19 + Ant Design 6）。拆分后两端可以独立部署、独立迭代。</p>
+      <p>各端 Dev Server 都把 /api 反向代理到 http://localhost:3000，开发时无跨域问题。CI/CD 三条 GitHub Actions 工作流分别部署。</p>
+    </div>
+  </div>
+
+  <!-- Q23 -->
+  <div class="qa">
+    <div class="q"><span class="tag deep">深度</span><span>SSE 流式输出是怎么实现的？后端用 RxJS Subject 还是直接写 SSE？</span></div>
+    <div class="a">
+      <div class="label">高分应答</div>
+      <p>后端用 NestJS 的 @Sse 装饰器 + RxJS Subject 实现：</p>
+      <ul>
+        <li><b>AIService</b>：generateChat 方法用 <code>Subject&lt;SseEvent&gt;</code> 作为事件源。事件类型三种：{ event: 'chunk', data: { delta } }、{ event: 'done', data: {} }、{ event: 'error', data: { message } }</li>
+        <li><b>Provider 层</b>：QwenProvider 基于 fetch + ReadableStream 解析 DashScope SSE 输出，提取 data 中的 delta.content。支持 AbortController 中断</li>
+        <li><b>Controller 层</b>：@Sse('chat/stream') 装饰器，将 Subject 的事件通过 map 转换为 { type, data } 格式推送</li>
+        <li><b>前端</b>：使用 @microsoft/fetch-event-source，重试机制为指数退避 1s → 2s → 4s，最大 3 次。openWhenHidden: true 保持页面隐藏时连接。自动附加 Authorization 头</li>
+      </ul>
+      <p>完整流程：额度检查 → 加载上下文 → 构造 messages → Provider 流式生成 → 保存旧版本 → 持久化新内容 → 记录额度 → done/error。超时控制 AI_TIMEOUT_MS 默认 15 秒。</p>
+      <p>关键设计：用 RxJS Subject 而非直接写 SSE，是因为 Subject 可以做<b>流式中间件</b>——在 Provider 和 Controller 之间插入额度检查、超时控制、错误处理等逻辑，而不侵入 Provider 的流式生成代码。</p>
+    </div>
+  </div>
+
+  <!-- Q24 -->
+  <div class="qa">
+    <div class="q"><span class="tag deep">深度</span><span>额度控制是怎么实现的？Redis Lua 脚本原子扣减的具体逻辑？</span></div>
+    <div class="a">
+      <div class="label">高分应答</div>
+      <p>要诚实说明：实际实现中额度控制用的是 <b>MySQL quota_records 表</b>，不是 Redis Lua 脚本。简历中写"Redis Lua"不够准确。</p>
+      <p>实际逻辑（QuotaService）：</p>
+      <ul>
+        <li><b>getTodayUsage</b>：按 recordDate 查询今日已用次数，不存在则创建记录</li>
+        <li><b>checkQuota</b>：比较 usedCount < dailyLimit（优先 users.daily_quota，未设置回退默认 50）</li>
+        <li><b>recordUsage</b>：先 orIgnore 保底建行，再原子递增 used_count + 1</li>
+      </ul>
+      <p>Redis 的角色是<b>限流</b>（Throttler），不是额度控制。用 ioredis 实现的 ThrottlerStorage：<code>multi().incr(key).expire(key, ttl).exec()</code> 原子递增，返回 { totalHits, timeToExpire }。</p>
+      <div class="tip"><b>面试技巧：</b>如果面试官问"Redis Lua 脚本怎么写的"，要诚实说"实际额度控制是 MySQL 原子递增实现的，Redis 做的是请求限流（Throttler）。如果要改成 Redis Lua 做额度控制，可以用 EVAL 执行 GET + INCR + EXPIRE 原子操作"。</div>
+    </div>
+  </div>
+
+  <!-- Q25 -->
+  <div class="qa">
+    <div class="q"><span class="tag">中频</span><span>多模态图片理解是怎么做的？什么时候切换到 vision 模型？</span></div>
+    <div class="a">
+      <div class="label">高分应答</div>
+      <p>Marketing Wise 支持用户上传产品图片，AI 结合图片理解生成文案。chat-prompt.ts 中自动检测 message 是否包含 image_url：</p>
+      <ul>
+        <li>有图时切换到 vision 模型（qwen-vl-max-latest）</li>
+        <li>无图时用文本模型（qwen-turbo）</li>
+      </ul>
+      <p>图片处理链路：相对路径补全 baseUrl → fetch 下载 → sharp 压缩（最大 1200x1200，目标 500KB~2MB，JPEG 质量 80 起自动调整）→ data: 协议内嵌或服务端绝对路径。</p>
+      <p>关键设计：图片压缩在服务端做而非前端，因为前端压缩质量不稳定（不同浏览器 Canvas 实现差异）。sharp 是 Node.js 的图像处理库，基于 libvips，性能比 Canvas 方案好。</p>
+    </div>
+  </div>
+
+  <!-- Q26 -->
+  <div class="qa">
+    <div class="q"><span class="tag">中频</span><span>CI/CD 三条工作流是怎么设计的？自动部署到哪？</span></div>
+    <div class="a">
+      <div class="label">高分应答</div>
+      <p>三条 GitHub Actions 工作流分别对应三端：</p>
+      <ul>
+        <li><b>server.yml</b>：npm ci → npm run build → SSH 部署到自有服务器 → PM2 重启</li>
+        <li><b>web.yml</b>：npm ci → npm run build → rsync 到 Nginx 静态目录</li>
+        <li><b>admin.yml</b>：npm ci → npm run build → rsync 到 Nginx 静态目录（不同路径）</li>
+      </ul>
+      <p>触发条件：push to main。server 走 SSH + PM2，web 和 admin 走 rsync + Nginx。仓库内置 PRD 需求规格和开发指南（架构/分层/代码规范/数据库实体）。</p>
+      <p>越权防护：项目归属服务端校验（ProjectService.checkOwnership），杜绝横向越权——用户 A 不能访问用户 B 的项目数据。</p>
+    </div>
+  </div>
+
+</section>
+
+<!-- ================= 通用 Agent ================= -->
+<section id="general">
+  <div class="sec-head">
+    <span class="idx">05</span>
+    <h2>通用 Agent 开发</h2>
+    <p class="desc">Agent 框架认知、向量数据库、LLM 模型、Prompt Engineering、工程化</p>
+  </div>
+
+  <!-- Q27 -->
+  <div class="qa">
+    <div class="q"><span class="tag hot">高频</span><span>你对 LangChain 和 LangGraph 的理解是什么？在你的项目中用过吗？</span></div>
+    <div class="a">
+      <div class="label">高分应答</div>
+      <p>我对 LangChain 和 LangGraph 的定位是<b>了解其设计理念并参考到自研引擎中</b>，没有在生产项目中直接使用。</p>
+      <p>LangChain 的核心抽象：Chain（链式调用）、Agent（自主决策）、Tool（工具注册）、Memory（上下文记忆）。这些抽象我在丽境中自研实现了——AgentStreamEvent 对应 Agent 的事件流，useAgentTools 对应 Tool 管理，tool_id 聚合对应 Memory。</p>
+      <p>LangGraph 的核心是 StateGraph——用图结构编排 Agent 工作流，支持条件路由和 Human-in-the-loop。我参考了这个思路设计 ReAct 五态流转：THINKING → TOOL_CALLING → OBSERVATION → ANSWER → RELATED_QUESTIONS，每个状态可以条件跳转到下一个。</p>
+      <p>为什么没用 LangChain：<b>丽境的 Agent 供应商是后端选定的平台</b>，工具调用在后端完成，前端只需消费 SSE 事件流。fileMind 是桌面应用，RAG 流水线用 Python 原生实现更轻量（不引入 LangChain 的庞大依赖链）。</p>
+      <div class="tip"><b>面试技巧：</b>诚实说"了解但没用过"比虚报"用过"好。如果面试官追问 LangChain 具体用法，可以说"了解 Chain / Agent / Tool / Memory 抽象，在自研引擎中参考了这些设计理念"。</div>
+    </div>
+  </div>
+
+  <!-- Q28 -->
+  <div class="qa">
+    <div class="q"><span class="tag hot">高频</span><span>你对 RAG 全链路的理解是什么？从文档到最终回答，每一步怎么做的？</span></div>
+    <div class="a">
+      <div class="label">高分应答</div>
+      <p>我在 fileMind 中完整自研了 RAG 全链路，7 个步骤：</p>
+      <ul>
+        <li><b>文档解析</b>：支持文本类文件（PDF/Word 暂缓），提取纯文本</li>
+        <li><b>分块（Chunking）</b>：~500 字符固定分块，保持段落完整性</li>
+        <li><b>向量化（Embedding）</b>：Ollama 本地 Embedding 模型，批量向量化，写入 LanceDB documents_{model}_v{version} 表</li>
+        <li><b>查询改写</b>：代词消解 + 关键词扩展，把多轮对话查询改写为独立检索查询</li>
+        <li><b>混合检索</b>：FTS5 BM25 Top-20 + LanceDB 向量 Top-20，RRF 融合</li>
+        <li><b>重排序</b>：BGE-reranker cross-encoder 精排 Top-5</li>
+        <li><b>生成 + 自我纠正</b>：LLM 基于 Top-5 context 生成回答，自我纠正检测幻觉（最多重试 2 次）</li>
+      </ul>
+      <p>每一步的"为什么"比"怎么做"更重要：分块大小影响召回粒度，500 字符平衡了召回率和上下文完整性；RRF 融合解决了不同检索引擎分数量纲不一致；cross-encoder 重排比 bi-encoder 精度高但慢，所以放在最后一步只排 Top-20。</p>
+    </div>
+  </div>
+
+  <!-- Q29 -->
+  <div class="qa">
+    <div class="q"><span class="tag hot">高频</span><span>你用过哪些向量数据库？选型怎么考虑？</span></div>
+    <div class="a">
+      <div class="label">高分应答</div>
+      <p>fileMind 中使用 <b>LanceDB</b> 作为向量数据库。选型考虑：</p>
+      <ul>
+        <li><b>本地优先</b>：fileMind 是桌面应用，数据不出端。LanceDB 是嵌入式向量库（类似 SQLite 的定位），无需独立服务进程</li>
+        <li><b>性能</b>：LanceDB 基于 Lance 列式存储格式，向量检索性能在本地场景足够</li>
+        <li><b>Python 友好</b>：有完善的 Python SDK，与 FastAPI Sidecar 集成简单</li>
+      </ul>
+      <p>其他向量库的了解：</p>
+      <ul>
+        <li><b>Milvus</b>：分布式向量库，适合大规模生产环境，但需要独立部署</li>
+        <li><b>Chroma</b>：轻量级嵌入式，Python 友好，但社区和生态不如 LanceDB</li>
+        <li><b>Pinecone</b>：托管云服务，开箱即用但有成本和数据出端问题</li>
+        <li><b>FAISS</b>：Meta 开源的向量检索库，不是数据库（无 CRUD），适合做检索引擎</li>
+      </ul>
+      <p>丽境的 RAG 检索在后端完成，前端只做结果展示，所以不确定后端用的是哪种向量库。</p>
+    </div>
+  </div>
+
+  <!-- Q30 -->
+  <div class="qa">
+    <div class="q"><span class="tag">中频</span><span>Function Calling 和 Tool Calling 有什么区别？在你的项目中怎么应用的？</span></div>
+    <div class="a">
+      <div class="label">高分应答</div>
+      <p>两者本质相同——都是 LLM 自主决定调用哪个工具、传什么参数。Function Calling 是 OpenAI 早期命名，Tool Calling 是后来的标准化命名（OpenAI 也迁移到了 tool_calls）。区别在于命名和细节格式。</p>
+      <p>在我的项目中的应用：</p>
+      <ul>
+        <li><b>丽境</b>：Agent 供应商的平台内置了 Function Calling 能力。后端注册了 6 种工具（Bing 搜索、小红书、趋势报告、RAG 检索、AI 生图、工作流），LLM 在对话中自动决定何时调用。前端通过 SSE 事件流消费工具调用结果</li>
+        <li><b>EduGPT</b>：后端将向量知识库、AI 绘画、OCR 批改封装为 Function Calling 工具。AI 助手在对话中自动检索知识库回答问题</li>
+        <li><b>fileMind</b>：没有用标准 Function Calling，而是自研 RAG 流水线。如果要做 Function Calling 版本，可以把 RAG 检索、文件分类、删除等能力注册为工具</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Q31 -->
+  <div class="qa">
+    <div class="q"><span class="tag">中频</span><span>你了解 MCP（Model Context Protocol）吗？和 Function Calling 有什么区别？</span></div>
+    <div class="a">
+      <div class="label">高分应答</div>
+      <p>MCP 是 Anthropic 提出的标准协议，用于 LLM 与外部工具/数据源通信。核心区别：</p>
+      <ul>
+        <li><b>Function Calling</b>：LLM 供应商定义工具的 schema 和调用格式（OpenAI 有自己的格式，Claude 有自己的格式），工具和 LLM 耦合</li>
+        <li><b>MCP</b>：统一协议，工具提供方实现 MCP Server，任何支持 MCP 的 LLM 客户端都可以调用。解耦了工具和 LLM</li>
+      </ul>
+      <p>MCP 的优势：工具复用（一个 MCP Server 服务所有 LLM）、权限控制（MCP Server 可以控制谁可以调用什么工具）、副作用管理（工具的写操作需要确认）。</p>
+      <p>在我的项目中，丽境的 Agent 供应商平台本质上是类似的——供应商提供工具集，LLM 调用。如果未来迁移到 MCP，可以把 6 种工具实现为 MCP Server，然后任何 LLM 客户端都可以消费。</p>
+      <div class="tip"><b>面试技巧：</b>MCP 是 2026 年新兴方向（~10% JD 提及），能说出"了解 + 和 Function Calling 的区别 + 在自己项目中的迁移路径"就足够了。</div>
+    </div>
+  </div>
+
+  <!-- Q32 -->
+  <div class="qa">
+    <div class="q"><span class="tag hot">高频</span><span>如果让你从零设计一个 Agent 系统，你会怎么做架构设计？</span></div>
+    <div class="a">
+      <div class="label">高分应答</div>
+      <p>基于丽境和 fileMind 的经验，我会这样分层：</p>
+      <ul>
+        <li><b>1. LLM 接入层</b>：Provider 抽象（参考 fileMind 的 provider_factory），支持多模型切换（Ollama 本地 / OpenAI / DeepSeek），统一接口</li>
+        <li><b>2. 工具注册层</b>：Tool Registry，每个工具有 schema（name / description / parameters）、执行函数、权限标签。参考丽境的 6 种工具设计</li>
+        <li><b>3. Agent 编排层</b>：ReAct 状态机（THINKING → TOOL_CALLING → OBSERVATION → ANSWER），支持条件路由和 Human-in-the-loop。参考 LangGraph 的 StateGraph 理念</li>
+        <li><b>4. RAG 检索层</b>：混合检索（BM25 + Dense）+ RRF 融合 + BGE-reranker 精排 + 查询改写 + 自我纠正。参考 fileMind 的 7 步流水线</li>
+        <li><b>5. SSE 流式传输层</b>：统一 AgentStreamEvent 事件模型，支持多协议归一化（参考丽境的三协议适配）</li>
+        <li><b>6. 安全层</b>：HMAC 通信签名、路径守卫、模式切换门、操作日志链式哈希（参考 fileMind 安全设计）</li>
+        <li><b>7. 评估层</b>：准确率 / 覆盖率 / 幻觉率 / Token 成本监控（参考 fileMind 的 eval 框架）</li>
+      </ul>
+      <p>关键设计决策：<b>不直接用 LangChain</b>（依赖链太重、版本迭代快、定制困难），而是参考其设计理念自研，可以精确控制每一步的行为和性能。</p>
+    </div>
+  </div>
+
+</section>
+
+<!-- footer -->
+<footer>
+  <p>AI Agent 应用开发面试题 · 王嵛 · 2026</p>
+  <p><a href="https://yyu-wang.github.io/portfolio-agent/">作品集主页</a> · <a href="https://yyu-wang.github.io/portfolio-agent/resume-agent.html">在线简历</a></p>
+</footer>
+
+</div>
+</body>
+</html>
