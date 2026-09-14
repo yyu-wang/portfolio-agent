@@ -444,14 +444,17 @@
           <span class="role">独立全栈开发</span>
           <span class="date">2026</span>
         </div>
-        <p class="pain">本地文件越攒越多，找内容只能靠文件名搜索——<b>存了 ≈ 找不到</b>。fileMind 把「整理」和「提问」合并成一件事：<b>本地文件即知识库</b>，整理完直接语义问答，答案命中自己的文档内容。</p>
+        <p class="pain">本地文件越攒越多，找内容只能靠文件名搜索——<b>存了 ≈ 找不到</b>。fileMind 把「整理」和「提问」合并成一件事：<b>本地文件即知识库</b>，整理完直接语义问答，答案命中自己的文档内容。默认所有 AI 处理在本地完成（Ollama），云端推理需显式同意后手动开启。</p>
         <div class="chips">
-          <span class="chip hl">Tauri 2</span><span class="chip hl">Rust</span><span class="chip hl">React 19</span><span class="chip hl">FastAPI</span><span class="chip hl">RAG</span><span class="chip">向量检索</span><span class="chip">本地优先</span>
+          <span class="chip hl">Tauri 2</span><span class="chip hl">Rust</span><span class="chip hl">React 19</span><span class="chip hl">FastAPI</span><span class="chip hl">RAG</span><span class="chip hl">LanceDB</span><span class="chip hl">Ollama</span><span class="chip">SQLite FTS5</span><span class="chip">BGE-reranker</span><span class="chip">tauri-specta</span>
         </div>
         <ul>
-          <li><b>跨语言三端架构</b>：Rust 壳层（Tauri 2）文件系统访问与窗口管理、React 19 前端交互、Python FastAPI Sidecar 向量检索服务，跨语言进程通信完整跑通</li>
-          <li><b>RAG 全链路自研</b>：本地文件解析 → 切片 → 向量化 → 语义问答，整条链路不依赖第三方服务，文件与向量数据全部留在本机</li>
-          <li><b>闭环工作流</b>：整理结果即知识源，「整理 → 提问 → 检索命中」一条链路，隐私不出端</li>
+          <li><b>跨语言三端架构</b>：Rust 壳层（Tauri 2）负责文件系统访问、SQLite 数据库与窗口管理；React 19 + Zustand 前端交互；Python FastAPI Sidecar 负责 RAG 全链路。Rust 层是<b>唯一客户端</b>——前端永远不直连 Sidecar，通过 HMAC-SHA256 签名 + 递增序号防重放通信</li>
+          <li><b>RAG 全链路自研</b>（7 步流水线）：查询改写（代词消解 + 关键词扩展）→ 双路检索（FTS5 BM25 Top-20 + LanceDB 向量 Top-20）→ <b>RRF 融合排序</b> → BGE-reranker cross-encoder 精排 Top-5 → LLM 生成 → <b>自我纠正</b>（幻觉检测 + 引用验证，最多重试 2 次）→ SSE 流式回答带引用标签跳转源文件</li>
+          <li><b>本地优先 + 多模型支持</b>：默认 Ollama 本地推理（Embedding + LLM），支持 OpenAI / DeepSeek 云端 Provider；Embedding 模型可热切换，向量表按 model + version 隔离；查询缓存（LRU + TTL）缓存重排结果命中时整条管线跳过</li>
+          <li><b>安全设计</b>：Sidecar 握手协议（PSK 存放操作系统钥匙串，永不落前端或 Python）、路径安全守卫（系统目录黑名单 + 路径穿越检查）、推理模式切换门（云端需签署同意书，撤回自动切回本地）、操作日志<b>链式 SHA-256 哈希</b>防篡改</li>
+          <li><b>智能分类引擎</b>：规则引擎 + 启发式兜底 + LLM 兜底三级分类策略，分类预览 → 带进度遮罩执行 → <b>24 小时撤销窗口</b>；内置评估框架（准确率 ≥85%、规则覆盖率 ≥70%、LLM 兜底准确率 ≥75%）</li>
+          <li><b>工程化</b>：tauri-specta 从 Rust 自动生成 TypeScript IPC 类型（禁止手改）；Vitest + cargo test + pytest 三层测试；ESLint + Clippy + Ruff + mypy 全链路 lint；GitHub Actions 双平台构建（macOS + Windows）</li>
         </ul>
       </div>
 
