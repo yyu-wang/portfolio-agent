@@ -437,6 +437,43 @@
         </ul>
       </div>
 
+      <!-- fileMind -->
+      <div class="proj reveal">
+        <div class="proj-head">
+          <span class="name">fileMind · 本地文件 RAG 问答</span>
+          <span class="role">独立全栈开发</span>
+          <span class="date">2026</span>
+        </div>
+        <p class="pain">本地文件越攒越多，找内容只能靠文件名搜索——<b>存了 ≈ 找不到</b>。fileMind 把「整理」和「提问」合并成一件事：<b>本地文件即知识库</b>，整理完直接语义问答，答案命中自己的文档内容。</p>
+        <div class="chips">
+          <span class="chip hl">Tauri 2</span><span class="chip hl">Rust</span><span class="chip hl">React 19</span><span class="chip hl">FastAPI</span><span class="chip hl">RAG</span><span class="chip">向量检索</span><span class="chip">本地优先</span>
+        </div>
+        <ul>
+          <li><b>跨语言三端架构</b>：Rust 壳层（Tauri 2）文件系统访问与窗口管理、React 19 前端交互、Python FastAPI Sidecar 向量检索服务，跨语言进程通信完整跑通</li>
+          <li><b>RAG 全链路自研</b>：本地文件解析 → 切片 → 向量化 → 语义问答，整条链路不依赖第三方服务，文件与向量数据全部留在本机</li>
+          <li><b>闭环工作流</b>：整理结果即知识源，「整理 → 提问 → 检索命中」一条链路，隐私不出端</li>
+        </ul>
+      </div>
+
+      <!-- Marketing Wise -->
+      <div class="proj reveal">
+        <div class="proj-head">
+          <span class="name">Marketing Wise · AI 营销文案生成</span>
+          <span class="role">独立全栈开发</span>
+          <span class="date">2025</span>
+        </div>
+        <p class="pain">营销文案创作依赖人工经验，多渠道适配耗时——<b>独立完成的完整产品</b>：用户输入产品与受众，AI 生成小红书 / 朋友圈 / 广告语等多渠道文案，支持 SSE 流式输出、多轮对话、文案管理与数据看板。</p>
+        <div class="chips">
+          <span class="chip hl">NestJS 10</span><span class="chip hl">Vue 3</span><span class="chip hl">React 19</span><span class="chip hl">SSE</span><span class="chip">MySQL</span><span class="chip">Redis</span><span class="chip">CI/CD</span>
+        </div>
+        <ul>
+          <li><b>Monorepo 三端架构</b>：NestJS 10 + TypeORM + MySQL 后端（REST API + SSE 推流）、Vue 3 + Element Plus 用户端 SPA、React 19 + Ant Design 6 管理后台（用户 / Prompt 模板 / 敏感词）</li>
+          <li><b>额度控制</b>：Redis Lua 脚本原子扣减 + MySQL 双写，每日自然日重置，并发下不超扣</li>
+          <li><b>SSE 流式输出</b>：文案逐字生成，多轮对话上下文保持，支持视觉模型图片理解</li>
+          <li><b>CI/CD 自动部署</b>：三条 GitHub Actions 工作流（server / web / admin）自动部署到自有服务器</li>
+        </ul>
+      </div>
+
     </div>
   </div>
 </section>
