@@ -386,14 +386,14 @@
         <p class="pain">鞋服设计需同时对接多家大模型供应商，<b>Agent 协议各异</b>、工具调用状态分散——主导打造覆盖「Agent 对话 → 工具编排 → 智能生图 → 图像编辑 → 趋势洞察」全链路的 AI Agent 创作引擎，服务鞋服箱包行业设计师。</p>
         <span class="badge">日均调用超万次</span>
         <div class="chips">
-          <span class="chip hl">Vue 3</span><span class="chip hl">TypeScript</span><span class="chip hl">SSE</span><span class="chip">@microsoft/fetch-event-source</span><span class="chip hl">AgentStreamEvent</span><span class="chip hl">RAG</span><span class="chip hl">onnxruntime-web</span><span class="chip">Canvas 2D</span><span class="chip">Fabric.js</span><span class="chip">Three.js</span>
+          <span class="chip hl">Vue 3</span><span class="chip hl">TypeScript</span><span class="chip hl">SSE</span><span class="chip">@microsoft/fetch-event-source</span><span class="chip hl">AgentStreamEvent</span><span class="chip hl">RAG</span><span class="chip hl">Gemini</span><span class="chip hl">GPT</span><span class="chip hl">ComfyUI</span><span class="chip hl">onnxruntime-web</span><span class="chip">Canvas 2D</span><span class="chip">Fabric.js</span><span class="chip">Three.js</span>
         </div>
         <ul>
           <li>设计<b>Agent 工具编排体系</b>：实现 6 种工具类型（Bing 联网搜索 / 小红书笔记 / 趋势报告 / RAG 知识库 / AI 生图 / 工作流），按 <b>tool_id 实时聚合</b>执行状态（STARTED → SUCCEEDED），多工具并发执行 + UI 联动（工具气泡 / 思考块 / 相关追问）</li>
           <li>落地<b>ReAct 思考链 + Agent 状态机</b>：参考 ReAct 范式设计 THINKING → TOOL_CALLING → OBSERVATION → ANSWER → RELATED_QUESTIONS 五态流转，结合状态图条件路由思路实现多轮工具编排与 Human-in-the-loop 确认</li>
           <li>构建<b>多协议 SSE 流式解析层</b>（双层架构）：Knodo（扁平 chunk）/ AgentPro BTY（三段式 conversation）/ BetterYeah 斑头雁（嵌套 delta + THINKING / TEXT / FUNCTION / RELATED_QUESTIONS）三种协议归一化为 <span class="hl">AgentStreamEvent</span>，新增供应商 UI 层零改动</li>
           <li>实现<b>RAG 知识库检索</b>全链路：parseKnowledgeCardResults 解析向量命中段落、相似度评分、TOP N 排名，文件名 / 知识库名 / 段落内容 / 原文链接完整展示</li>
-          <li>自主研发<b>多模型并行生图调度器</b>：SSE 逐帧分槽 + 用户取消状态机；buildAgentGenerateImageToolGroup 合并多条 generate_image 为一组 UI，队列管理（loading / waiting / done 三态），兼容 Markdown / URL / 数组 / 对象多格式图片解析</li>
+          <li>自主研发<b>多模型并行生图调度器</b>：对接 <b>Gemini / GPT / ComfyUI</b> 三大模型，SSE 逐帧分槽 + 用户取消状态机；buildAgentGenerateImageToolGroup 合并多条 generate_image 为一组 UI，队列管理（loading / waiting / done 三态），兼容 Markdown / URL / 数组 / 对象多格式图片解析</li>
           <li>基于 <b>onnxruntime-web 端侧推理</b>集成 Segment Anything 点击分割，配合 Canvas 标注引擎（画笔 / 橡皮擦 / 撤销重做 / DPR 高清）驱动 AI 局部重绘；Fabric.js 编辑器插件体系支撑海报编辑与 AI PPT 生成</li>
         </ul>
       </div>
@@ -475,7 +475,7 @@
         </div>
         <div class="cap-desc">知识库向量搜索全链路，相似度评分 + TOP N 排名命中展示</div>
         <div class="cap-list">
-          <span>parseKnowledgeCardResults</span><span>向量相似度</span><span>TOP N 排名</span><span>向量存储创建</span><span>文件上传入库</span><span>助手关联</span><span>FastAPI</span>
+          <span>Milvus / Chroma / Pinecone</span><span>Embedding 选型</span><span>混合检索 BM25 + Dense</span><span>parseKnowledgeCardResults</span><span>向量相似度</span><span>TOP N 排名</span><span>向量存储创建</span><span>文件上传入库</span><span>助手关联</span><span>FastAPI</span>
         </div>
       </div>
       <div class="cap reveal">
@@ -485,7 +485,7 @@
         </div>
         <div class="cap-desc">多模型并行生图槽位调度，预占位 + 乱序回填 + 取消状态机</div>
         <div class="cap-list">
-          <span>buildAgentGenerateImageToolGroup</span><span>loading / waiting / done</span><span>Markdown / URL / 数组 / 对象</span><span>AbortController</span>
+          <span>Gemini</span><span>GPT</span><span>ComfyUI</span><span>buildAgentGenerateImageToolGroup</span><span>loading / waiting / done</span><span>Markdown / URL / 数组 / 对象</span><span>AbortController</span>
         </div>
       </div>
       <div class="cap reveal">

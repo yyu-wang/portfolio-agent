@@ -153,11 +153,11 @@
       <dt>多协议 SSE</dt>
       <dd>三种 Agent 供应商协议适配与归一化：<b>Knodo</b>（扁平 chunk）/ <b>AgentPro BTY</b>（三段式 conversation）/ <b>BetterYeah 斑头雁</b>（嵌套 delta + THINKING / TEXT / FUNCTION / RELATED_QUESTIONS），统一映射为 <b>AgentStreamEvent</b> 事件模型，新增供应商 UI 层零改动。</dd>
       <dt>RAG 向量检索</dt>
-      <dd>知识库<b>向量检索全链路</b>：parseKnowledgeCardResults 解析命中段落、相似度评分、TOP N 排名展示；EduGPT 项目实现<b>向量存储创建 / 文件上传 / 助手关联</b>管理闭环。</dd>
+      <dd>知识库<b>向量检索全链路</b>：parseKnowledgeCardResults 解析命中段落、相似度评分、TOP N 排名展示；熟悉 <b>Milvus / Chroma / Pinecone</b> 等向量数据库选型与 Embedding 模型接入；EduGPT 项目实现<b>向量存储创建 / 文件上传 / 助手关联</b>管理闭环。</dd>
       <dt>全栈 AI 平台</dt>
       <dd>具备 <b>NestJS + Python（FastAPI）</b> 后端协作与独立交付能力：向量检索服务开发、AI 助手管理平台（分类 / 示例 / 向量库）、AI 绘画并发排队系统；Docker 容器化 + GitHub Actions CI/CD 全流程部署。</dd>
       <dt>端侧推理</dt>
-      <dd><b>onnxruntime-web 浏览器端推理</b>集成 Segment Anything 点击分割，配合 Canvas 标注引擎（画笔 / 橡皮擦 / 撤销重做 / DPR 高清）驱动 AI 局部重绘；多模型并行生图槽位调度（预占位 + 乱序回填 + 取消状态机）。</dd>
+      <dd><b>onnxruntime-web 浏览器端推理</b>集成 Segment Anything 点击分割，配合 Canvas 标注引擎（画笔 / 橡皮擦 / 撤销重做 / DPR 高清）驱动 AI 局部重绘；多模型（<b>Gemini / GPT / ComfyUI</b>）并行生图槽位调度（预占位 + 乱序回填 + 取消状态机）。</dd>
     </dl>
   </section>
 
@@ -172,7 +172,7 @@
       <dt>多协议 SSE</dt>
       <dd><b>三种 Agent 协议适配</b>（Knodo 扁平 chunk / AgentPro BTY 三段式 / BetterYeah 嵌套 delta）· AgentStreamEvent 事件归一化 · @microsoft/fetch-event-source · 断线自动重连 · 取消状态机</dd>
       <dt>RAG / 向量检索</dt>
-      <dd>知识库向量搜索 · 相似度评分 · TOP N 排名命中 · 向量存储管理（创建 / 文件上传 / 助手关联）· FastAPI 向量检索服务</dd>
+      <dd>向量数据库（<b>Milvus / Chroma / Pinecone / FAISS</b>）· Embedding 模型选型 · 知识库向量搜索 · 相似度评分 · TOP N 排名命中 · 混合检索（BM25 + Dense）· 向量存储管理（创建 / 文件上传 / 助手关联）· FastAPI 向量检索服务</dd>
       <dt>前端框架</dt>
       <dd><b>Vue 2/3</b>（Pinia / Vue Router / Element Plus / Ant Design Vue）· <b>React 19</b>（Zustand / Ant Design）· TypeScript · Vite</dd>
       <dt>跨端开发</dt>
@@ -252,14 +252,14 @@
       </div>
       <div class="sum">鞋服设计需同时对接多家大模型供应商，Agent 协议各异、工具调用状态分散——主导打造覆盖「Agent 对话 → 工具编排 → 智能生图 → 图像编辑 → 趋势洞察」全链路的 AI Agent 创作引擎，服务鞋服箱包行业设计师。<span class="badge">上线后 AI 功能日均调用超万次</span></div>
       <div class="chips">
-        <span class="chip">Vue 3</span><span class="chip">TypeScript</span><span class="chip">SSE</span><span class="chip">@microsoft/fetch-event-source</span><span class="chip">AgentStreamEvent</span><span class="chip">RAG</span><span class="chip">onnxruntime-web</span><span class="chip">Canvas 2D</span><span class="chip">Fabric.js</span><span class="chip">Three.js</span>
+        <span class="chip">Vue 3</span><span class="chip">TypeScript</span><span class="chip">SSE</span><span class="chip">@microsoft/fetch-event-source</span><span class="chip">AgentStreamEvent</span><span class="chip">RAG</span><span class="chip">Gemini</span><span class="chip">GPT</span><span class="chip">ComfyUI</span><span class="chip">onnxruntime-web</span><span class="chip">Canvas 2D</span><span class="chip">Fabric.js</span><span class="chip">Three.js</span>
       </div>
       <ul class="bul">
         <li>设计<b>Agent 工具编排体系</b>：实现 6 种工具类型（Bing 联网搜索 / 小红书笔记 / 趋势报告 / RAG 知识库 / AI 生图 / 工作流），按 <b>tool_id 实时聚合</b>执行状态（STARTED → SUCCEEDED），多工具并发执行 + UI 联动（工具气泡 / 思考块 / 相关追问）</li>
         <li>落地<b>ReAct 思考链 + Agent 状态机</b>：参考 ReAct 范式设计 THINKING → TOOL_CALLING → OBSERVATION → ANSWER → RELATED_QUESTIONS 五态流转，结合状态图条件路由思路实现多轮工具编排与 Human-in-the-loop 确认</li>
         <li>构建<b>多协议 SSE 流式解析层</b>（双层架构）：Knodo（扁平 chunk）/ AgentPro BTY（三段式 conversation）/ BetterYeah 斑头雁（嵌套 delta + THINKING / TEXT / FUNCTION / RELATED_QUESTIONS）三种协议归一化为 <b>AgentStreamEvent</b>，新增供应商 UI 层零改动</li>
         <li>实现<b>RAG 知识库检索</b>全链路：parseKnowledgeCardResults 解析向量命中段落、相似度评分、TOP N 排名，文件名 / 知识库名 / 段落内容 / 原文链接完整展示</li>
-        <li>自主研发<b>多模型并行生图调度器</b>：SSE 逐帧分槽 + 用户取消状态机；buildAgentGenerateImageToolGroup 合并多条 generate_image 为一组 UI，队列管理（loading / waiting / done 三态），兼容 Markdown / URL / 数组 / 对象多格式图片解析</li>
+        <li>自主研发<b>多模型并行生图调度器</b>：对接 <b>Gemini / GPT / ComfyUI</b> 三大模型，SSE 逐帧分槽 + 用户取消状态机；buildAgentGenerateImageToolGroup 合并多条 generate_image 为一组 UI，队列管理（loading / waiting / done 三态），兼容 Markdown / URL / 数组 / 对象多格式图片解析</li>
         <li>基于 <b>onnxruntime-web 端侧推理</b>集成 Segment Anything 点击分割，配合 Canvas 标注引擎（画笔 / 橡皮擦 / 撤销重做 / DPR 高清）驱动 AI 局部重绘；Fabric.js 编辑器插件体系支撑海报编辑与 AI PPT 生成</li>
       </ul>
     </div>
