@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>王嵛 · AI Agent 应用工程师 · 求职作品集</title>
+<meta name="description" content="7 年前端经验，专注 AI Agent 应用层：工具编排、多协议 SSE、RAG 向量检索、多模型调度、端侧推理。百丽 AI 设计平台「丽境」前端核心开发。" />
+<style>
+  :root {
+    --bg: #0d0a1a;
+    --bg2: #131029;
+    --bg3: #1a1535;
+    --ink: #e8e4f5;
+    --muted: #9b94b8;
+    --faint: #6e6789;
+    --rule: #2a2345;
+    --rule-soft: #1e1838;
+    --accent: #8b5cf6;
+    --accent-dim: rgba(139, 92, 246, 0.15);
+    --accent2: #c084fc;
+    --accent2-dim: rgba(192, 132, 252, 0.12);
+    --cyan: #22d3ee;
+    --cyan-dim: rgba(34, 211, 238, 0.12);
+    --warn: #fbbf24;
+    --danger: #f87171;
+    --mono: 'SF Mono', 'JetBrains Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+    --sans: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    --maxw: 1060px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15.5px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: rgba(139, 92, 246, 0.35); }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+
+  /* ---------- nav ---------- */
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(13, 10, 26, 0.82);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  nav .bar {
+    max-width: var(--maxw); margin: 0 auto; padding: 14px 28px;
+    display: flex; align-items: center; gap: 22px;
+  }
+  nav .logo { font-family: var(--mono); font-size: 14px; font-weight: 700; color: var(--ink); }
+  nav .logo em { color: var(--accent2); font-style: normal; }
+  nav .links { display: flex; gap: 4px; margin-left: auto; }
+  nav .links a {
+    color: var(--muted); font-size: 13.5px; padding: 5px 12px;
+    border-radius: 7px; transition: color .15s, background .15s;
+  }
+  nav .links a:hover { color: var(--ink); background: var(--bg3); text-decoration: none; }
+  nav .links a.active { color: var(--accent); }
+  nav .gh {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-family: var(--mono); font-size: 12.5px; color: var(--ink);
+    border: 1px solid var(--rule); border-radius: 7px; padding: 5px 13px;
+    transition: border-color .15s, background .15s;
+  }
+  nav .gh:hover { border-color: var(--accent); background: var(--bg3); text-decoration: none; }
+  nav .gh svg { width: 15px; height: 15px; fill: currentColor; }
+
+  /* ---------- hero ---------- */
+  .hero { padding: 88px 0 76px; border-bottom: 1px solid var(--rule-soft); position: relative; overflow: hidden; }
+  .hero::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(900px 360px at 18% -60px, rgba(139, 92, 246, 0.16), transparent 65%);
+  }
+  .hero::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(600px 300px at 85% 20%, rgba(34, 211, 238, 0.08), transparent 60%);
+  }
+  .hero .grid {
+    position: relative;
+    display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 56px; align-items: center;
+  }
+  .eyebrow {
+    font-family: var(--mono); font-size: 13px; color: var(--cyan);
+    letter-spacing: 0.04em; margin-bottom: 18px;
+  }
+  .eyebrow .c { color: var(--faint); }
+  h1 { font-size: 54px; font-weight: 800; line-height: 1.1; letter-spacing: 0.01em; }
+  h1 .grad {
+    background: linear-gradient(135deg, var(--accent), var(--accent2) 60%, var(--cyan));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero .pos {
+    margin-top: 14px; font-size: 19px; color: var(--accent2); font-weight: 600;
+  }
+  .hero .thesis {
+    margin-top: 18px; font-size: 16px; color: var(--muted); max-width: 30em;
+  }
+  .hero .thesis b { color: var(--ink); font-weight: 600; }
+  .hero .stats {
+    display: flex; gap: 28px; margin-top: 32px;
+  }
+  .hero .stat .n {
+    font-family: var(--mono); font-size: 28px; font-weight: 700;
+    color: var(--accent);
+  }
+  .hero .stat .l {
+    font-size: 12px; color: var(--faint); margin-top: 2px;
+  }
+  .hero .cta { display: flex; gap: 12px; margin-top: 36px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 14px; font-weight: 600; padding: 11px 24px;
+    border-radius: 9px; transition: all .18s;
+  }
+  .btn-primary {
+    background: var(--accent); color: #fff;
+    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.35);
+  }
+  .btn-primary:hover { background: var(--accent2); text-decoration: none; transform: translateY(-1px); }
+  .btn-ghost {
+    border: 1px solid var(--rule); color: var(--ink);
+  }
+  .btn-ghost:hover { border-color: var(--accent); background: var(--bg3); text-decoration: none; }
+
+  /* ---------- terminal mock ---------- */
+  .terminal {
+    position: relative; border-radius: 12px; overflow: hidden;
+    border: 1px solid var(--rule); box-shadow: 0 12px 48px rgba(0,0,0,0.4);
+    background: var(--bg2);
+  }
+  .terminal .tbar {
+    display: flex; align-items: center; gap: 6px;
+    padding: 11px 16px; border-bottom: 1px solid var(--rule-soft);
+    background: var(--bg3);
+  }
+  .terminal .tbar i { width: 12px; height: 12px; border-radius: 50%; }
+  .terminal .tbar i:nth-child(1) { background: #ff5f57; }
+  .terminal .tbar i:nth-child(2) { background: #febc2e; }
+  .terminal .tbar i:nth-child(3) { background: #28c840; }
+  .terminal .tbar span { margin-left: 8px; font-family: var(--mono); font-size: 12px; color: var(--faint); }
+  .terminal .tbar .live {
+    margin-left: auto; font-family: var(--mono); font-size: 10px;
+    color: var(--cyan); display: flex; align-items: center; gap: 5px;
+  }
+  .terminal .tbar .live::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--cyan); box-shadow: 0 0 8px var(--cyan);
+  }
+  .terminal .tbody {
+    padding: 16px 18px; font-family: var(--mono); font-size: 12.5px; line-height: 1.85;
+    max-height: 380px; overflow: hidden;
+  }
+  .terminal .tbody .c { color: var(--faint); }
+  .terminal .tbody .k { color: var(--accent2); }
+  .terminal .tbody .s { color: var(--cyan); }
+  .terminal .tbody .w { color: var(--warn); }
+  .terminal .tbody .ok { color: #28c840; }
+  .terminal .tbody .tool {
+    display: inline-block; font-size: 10px; padding: 1px 7px; border-radius: 3px;
+    background: var(--accent-dim); color: var(--accent2);
+    border: 1px solid rgba(139, 92, 246, 0.25); margin: 0 2px;
+  }
+  .terminal .tbody .blink {
+    display: inline-block; width: 8px; height: 15px;
+    background: var(--accent2); vertical-align: -2px; animation: blink 1s step-end infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* ---------- sections ---------- */
+  section.block { padding: 80px 0; border-bottom: 1px solid var(--rule-soft); }
+  .sec-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 40px; }
+  .sec-head .idx {
+    font-family: var(--mono); font-size: 13px; color: var(--accent);
+    font-weight: 700; opacity: 0.8;
+  }
+  .sec-head h2 { font-size: 30px; font-weight: 800; }
+  .sec-head .en {
+    font-family: var(--mono); font-size: 11px; color: var(--faint);
+    letter-spacing: 0.18em; margin-left: auto;
+  }
+
+  /* ---------- project cards ---------- */
+  .proj-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+  .proj {
+    border: 1px solid var(--rule); border-radius: 14px; padding: 28px;
+    background: linear-gradient(180deg, var(--bg2), var(--bg));
+    transition: border-color .2s, transform .2s;
+  }
+  .proj:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .proj-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .proj-head .name { font-size: 20px; font-weight: 700; }
+  .proj-head .role { font-size: 13px; color: var(--accent2); }
+  .proj-head .date { margin-left: auto; font-family: var(--mono); font-size: 12px; color: var(--faint); }
+  .proj .pain { font-size: 14px; color: var(--muted); margin-top: 8px; }
+  .proj .pain b { color: var(--ink); }
+  .proj .chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 12px; }
+  .proj .chip {
+    font-family: var(--mono); font-size: 10.5px; color: var(--muted);
+    border: 1px solid var(--rule); border-radius: 4px; padding: 2px 8px;
+    background: var(--bg3); white-space: nowrap;
+  }
+  .proj .chip.hl { color: var(--accent2); border-color: rgba(139, 92, 246, 0.3); }
+  .proj ul { list-style: none; margin-top: 16px; }
+  .proj ul li {
+    position: relative; padding-left: 18px; font-size: 14px; margin-bottom: 8px;
+    color: var(--muted);
+  }
+  .proj ul li::before {
+    content: ''; position: absolute; left: 0; top: 0.62em; width: 6px; height: 6px;
+    background: var(--accent); border-radius: 1px; transform: rotate(45deg);
+  }
+  .proj ul li b { color: var(--ink); font-weight: 600; }
+  .proj ul li .hl { color: var(--accent2); font-weight: 600; }
+  .proj .badge {
+    display: inline-block; font-size: 11px; color: var(--cyan);
+    border: 1px solid rgba(34, 211, 238, 0.3); border-radius: 4px;
+    padding: 2px 8px; margin-left: 8px; background: var(--cyan-dim);
+  }
+
+  /* ---------- capability matrix ---------- */
+  .cap-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+  }
+  .cap {
+    border: 1px solid var(--rule); border-radius: 12px; padding: 22px;
+    background: var(--bg2); transition: border-color .2s;
+  }
+  .cap:hover { border-color: var(--accent); }
+  .cap .cap-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .cap .cap-icon {
+    width: 36px; height: 36px; border-radius: 9px;
+    background: var(--accent-dim); display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .cap .cap-title { font-size: 16px; font-weight: 700; }
+  .cap .cap-list { display: flex; flex-wrap: wrap; gap: 5px; }
+  .cap .cap-list span {
+    font-family: var(--mono); font-size: 10.5px; color: var(--muted);
+    border: 1px solid var(--rule); border-radius: 3px; padding: 2px 7px;
+    background: var(--bg3); white-space: nowrap;
+  }
+  .cap .cap-desc { font-size: 13px; color: var(--muted); margin-bottom: 10px; line-height: 1.6; }
+
+  /* ---------- experience ---------- */
+  .xp { display: grid; grid-template-columns: 130px 1fr; gap: 24px; padding: 18px 0; border-bottom: 1px solid var(--rule-soft); }
+  .xp:last-child { border-bottom: none; }
+  .xp .when { font-family: var(--mono); font-size: 12.5px; color: var(--faint); }
+  .xp .where { font-size: 15px; font-weight: 700; }
+  .xp .where .role { color: var(--accent2); font-weight: 400; font-size: 13px; margin-left: 8px; }
+  .xp p { font-size: 13.5px; color: var(--muted); margin-top: 4px; }
+
+  /* ---------- contact ---------- */
+  .contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .contact-card {
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    padding: 28px 20px; border: 1px solid var(--rule); border-radius: 12px;
+    background: var(--bg2); transition: border-color .2s, background .2s;
+    text-decoration: none;
+  }
+  .contact-card:hover { border-color: var(--accent); background: var(--bg3); text-decoration: none; }
+  .contact-card svg { width: 24px; height: 24px; fill: var(--accent); }
+  .contact-card .cc-t { font-size: 14px; font-weight: 600; color: var(--ink); }
+  .contact-card .cc-s { font-family: var(--mono); font-size: 11.5px; color: var(--muted); }
+  .contact-card.dl { border-color: rgba(139, 92, 246, 0.4); }
+  .contact-card.dl .cc-t { color: var(--accent2); }
+
+  /* ---------- footer ---------- */
+  footer { padding: 40px 0; text-align: center; }
+  footer p { font-size: 12.5px; color: var(--faint); }
+
+  /* ---------- reveal ---------- */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s, transform .6s; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 860px) {
+    .hero { padding: 60px 0 50px; }
+    .hero .grid { grid-template-columns: 1fr; gap: 40px; }
+    h1 { font-size: 40px; }
+    .terminal .tbody { max-height: 280px; }
+    .cap-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .xp { grid-template-columns: 1fr; gap: 4px; }
+    .sec-head h2 { font-size: 24px; }
+    nav .links { display: none; }
+    section.block { padding: 56px 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= nav ================= -->
+<nav>
+  <div class="bar">
+    <div class="logo">yyu-wang<em>.dev</em></div>
+    <div class="links">
+      <a href="#projects">Agent 案例</a>
+      <a href="#capabilities">能力矩阵</a>
+      <a href="#experience">经历</a>
+      <a href="#contact">联系</a>
+    </div>
+    <a class="gh" href="https://github.com/yyu-wang" target="_blank" rel="noopener">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.68-.49-2.69-.49-.46-.95-.74-1.18-.74-1.18-.61-.42.05-.41.05-.41 1.07.08 1.64 1.1 1.64 1.1.62 1.06 1.63.76 2.03.58.06-.45.24-.76.44-.94-1.56-.18-3.2-.78-3.2-3.46 0-.76.27-1.39.72-1.88-.07-.18-.31-.89.07-1.86 0 0 .59-.19 1.92.72.56-.16 1.16-.24 1.75-.24.6 0 1.2.08 1.75.24 1.33-.91 1.92-.72 1.92-.72.38.97.14 1.68.07 1.86.45.49.72 1.12.72 1.88 0 2.69-1.64 3.28-3.2 3.45.25.22.48.65.48 1.31 0 .95-.01 1.71-.01 1.94 0 .21.15.46.55.38C13.71 14.53 16 11.54 16 8c0-4.42-3.58-8-8-8z"/></svg>
+      GitHub
+    </a>
+  </div>
+</nav>
+
+<!-- ================= hero ================= -->
+<section class="hero">
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <div class="eyebrow">AI Agent Application Engineer <span class="c">// 2026</span></div>
+        <h1>构建 <span class="grad">Agent</span> 与人<br/>协作的界面</h1>
+        <div class="pos">资深前端开发工程师 · AI Agent 应用方向</div>
+        <div class="thesis">
+          7 年前端经验，专注 <b>Agent 应用层</b>全链路：工具编排、多协议 SSE 流式、RAG 向量检索、多模型并行调度、端侧推理。主导百丽「丽境」AI 设计平台前端建设，<b>日均调用超万次</b>。
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="n">6</div><div class="l">Agent 工具类型</div></div>
+          <div class="stat"><div class="n">3</div><div class="l">SSE 协议适配</div></div>
+          <div class="stat"><div class="n">10k+</div><div class="l">日均 AI 调用</div></div>
+          <div class="stat"><div class="n">7</div><div class="l">年前端经验</div></div>
+        </div>
+        <div class="cta">
+          <a class="btn btn-primary" href="#projects">看 Agent 案例 ↓</a>
+          <a class="btn btn-ghost" href="resume-agent.html">下载简历</a>
+        </div>
+      </div>
+      <div>
+        <div class="terminal">
+          <div class="tbar"><i></i><i></i><i></i><span>SSE 流式事件 · Agent demo</span><span class="live">LIVE</span></div>
+          <div class="tbody">
+<span class="c">// Agent 工具编排 · 多协议 SSE 实时流</span><br/>
+<span class="k">event:</span> <span class="s">THINKING</span><br/>
+<span class="k">data:</span>  正在分析用户意图...<br/>
+<span class="k">event:</span> <span class="s">FUNCTION</span><br/>
+<span class="k">data:</span>  <span class="tool">search_by_bing</span> 启动<br/>
+<span class="k">data:</span>  <span class="tool">search_by_dataset</span> 启动<br/>
+<span class="k">data:</span>  <span class="tool">generate_image</span> 排队中<br/>
+<span class="k">event:</span> <span class="ok">SUCCEEDED</span><br/>
+<span class="k">data:</span>  <span class="tool">search_by_bing</span> → 3 条结果<br/>
+<span class="k">data:</span>  <span class="tool">search_by_dataset</span> → 5 段命中<br/>
+<span class="k">data:</span>  <span class="tool">generate_image</span> → 已完成<br/>
+<span class="k">event:</span> <span class="s">TEXT</span><br/>
+<span class="k">data:</span>  根据检索结果，为您推荐<br/>
+<span class="k">event:</span> <span class="w">RELATED_QUESTIONS</span><br/>
+<span class="k">data:</span>  "查看更多趋势数据？"<br/>
+<span class="k">data:</span>  "生成配色方案？"<br/>
+<span class="blink"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= projects ================= -->
+<section class="block" id="projects">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="idx">01</span><h2>Agent 生产案例</h2><span class="en">Projects</span>
+    </div>
+    <div class="proj-grid">
+
+      <!-- 丽境 -->
+      <div class="proj reveal">
+        <div class="proj-head">
+          <span class="name">丽境 · 百丽 AI 设计平台</span>
+          <span class="role">前端核心开发</span>
+          <span class="date">2026.01 – 2026.07</span>
+        </div>
+        <p class="pain">鞋服设计需同时对接多家大模型供应商，<b>Agent 协议各异</b>、工具调用状态分散——主导打造覆盖「Agent 对话 → 工具编排 → 智能生图 → 图像编辑 → 趋势洞察」全链路的 AI Agent 创作引擎，服务鞋服箱包行业设计师。</p>
+        <span class="badge">日均调用超万次</span>
+        <div class="chips">
+          <span class="chip hl">Vue 3</span><span class="chip hl">TypeScript</span><span class="chip hl">SSE</span><span class="chip">@microsoft/fetch-event-source</span><span class="chip hl">AgentStreamEvent</span><span class="chip hl">RAG</span><span class="chip hl">onnxruntime-web</span><span class="chip">Canvas 2D</span><span class="chip">Fabric.js</span><span class="chip">Three.js</span>
+        </div>
+        <ul>
+          <li>设计<b>Agent 工具编排体系</b>：实现 6 种工具类型（Bing 联网搜索 / 小红书笔记 / 趋势报告 / RAG 知识库 / AI 生图 / 工作流），按 <b>tool_id 实时聚合</b>执行状态（STARTED → SUCCEEDED），多工具并发执行 + UI 联动（工具气泡 / 思考块 / 相关追问）</li>
+          <li>构建<b>多协议 SSE 流式解析层</b>（双层架构）：Knodo（扁平 chunk）/ AgentPro BTY（三段式 conversation）/ BetterYeah 斑头雁（嵌套 delta + THINKING / TEXT / FUNCTION / RELATED_QUESTIONS）三种协议归一化为 <span class="hl">AgentStreamEvent</span>，新增供应商 UI 层零改动</li>
+          <li>实现<b>RAG 知识库检索</b>全链路：parseKnowledgeCardResults 解析向量命中段落、相似度评分、TOP N 排名，文件名 / 知识库名 / 段落内容 / 原文链接完整展示</li>
+          <li>自主研发<b>多模型并行生图调度器</b>：SSE 逐帧分槽 + 用户取消状态机；buildAgentGenerateImageToolGroup 合并多条 generate_image 为一组 UI，队列管理（loading / waiting / done 三态），兼容 Markdown / URL / 数组 / 对象多格式图片解析</li>
+          <li>基于 <b>onnxruntime-web 端侧推理</b>集成 Segment Anything 点击分割，配合 Canvas 标注引擎（画笔 / 橡皮擦 / 撤销重做 / DPR 高清）驱动 AI 局部重绘；Fabric.js 编辑器插件体系支撑海报编辑与 AI PPT 生成</li>
+        </ul>
+      </div>
+
+      <!-- EduGPT -->
+      <div class="proj reveal">
+        <div class="proj-head">
+          <span class="name">EduGPT · AI 教育平台</span>
+          <span class="role">前端负责人</span>
+          <span class="date">2024.01 – 2025.03</span>
+        </div>
+        <p class="pain">教育行业 AI 助手分散、备课授课链路割裂——主导构建覆盖「备课 – 授课 – 作业 – 学情」全链路的 AI 教学平台，管理后台 + 学生客户端双端系统，内置 <b>AI 助手管理与向量知识库</b>。</p>
+        <div class="chips">
+          <span class="chip hl">Vue 3</span><span class="chip hl">TypeScript</span><span class="chip hl">向量存储</span><span class="chip hl">SSE</span><span class="chip">Konva.js</span><span class="chip">md-editor-v3</span><span class="chip">KaTeX</span><span class="chip">vue-i18n</span>
+        </div>
+        <ul>
+          <li>设计<b>向量存储管理闭环</b>：向量库创建 / 更新 / 删除、文件上传入库、向量库 ↔ AI 助手关联；助手分类与示例管理，支撑教师自定义 AI 助手知识源</li>
+          <li>实现<b>AI 绘画并发排队系统</b>：排队位置实时查询（imageQueueApi）、16 种学科风格模板、画作历史记录与详情管理</li>
+          <li><b>SSE 流式对话系统</b>：逐字输出、Markdown + LaTeX 实时渲染（LaTeX 转义规范化）、断线自动重连，弱网场景对话不中断</li>
+          <li>打通百度云 OCR 拍照录题全流程：客观题自动评分、主观题辅助批改，作业处理效率提升 <span class="hl">50%</span>；AI 题目生成按年级 + 学科定向输出</li>
+        </ul>
+      </div>
+
+      <!-- 百企 -->
+      <div class="proj reveal">
+        <div class="proj-head">
+          <span class="name">百企 · 商品经营数据平台</span>
+          <span class="role">前端核心开发</span>
+          <span class="date">2025.11 – 2026.02</span>
+        </div>
+        <p class="pain">百丽集团三大业务线看数分散、决策依赖人工报表——构建企业级商品经营数据可视化平台，支撑核心业务部门日常经营决策；同架构复用交付姊妹产品「丽构」。</p>
+        <span class="badge">支撑三大业务线决策</span>
+        <div class="chips">
+          <span class="chip hl">Vue 3.5</span><span class="chip hl">TypeScript</span><span class="chip">Pinia</span><span class="chip hl">LeaferJS</span><span class="chip">VChart</span><span class="chip">ECharts</span><span class="chip">@tanstack/vue-virtual</span>
+        </div>
+        <ul>
+          <li><b>LeaferJS 脑图渲染引擎</b>：策略模式分离布局 / 渲染 / 交互职责，两阶段布局算法支撑万级节点流畅渲染，替代传统图表库包体积减少超一半</li>
+          <li>万级商品图片网格<b>按行虚拟滚动</b>：动态列数 + 虚拟化单位为行 + measureElement 实测修正行高，总 DOM 从数万降至数百级，滚动稳定 <span class="hl">60fps</span></li>
+          <li>自研<b>品类结构树表格</b>：三层动态表头、递归 rowspan 合并、季节父项跨行聚合；createSharedComposable 跨面板共享筛选状态 + AbortController 解决 5 级级联筛选竞态</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= capabilities ================= -->
+<section class="block" id="capabilities">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="idx">02</span><h2>能力矩阵</h2><span class="en">Capabilities</span>
+    </div>
+    <div class="cap-grid">
+      <div class="cap reveal">
+        <div class="cap-head">
+          <div class="cap-icon">⚡</div>
+          <div class="cap-title">Agent 工具编排</div>
+        </div>
+        <div class="cap-desc">6 种工具类型并发执行，tool_id 实时聚合状态，多工具 UI 联动</div>
+        <div class="cap-list">
+          <span>Bing 联网搜索</span><span>小红书笔记</span><span>趋势报告</span><span>RAG 知识库</span><span>AI 生图</span><span>工作流 flow</span><span>工具气泡</span><span>思考块</span><span>相关追问</span>
+        </div>
+      </div>
+      <div class="cap reveal">
+        <div class="cap-head">
+          <div class="cap-icon">📡</div>
+          <div class="cap-title">多协议 SSE 流式</div>
+        </div>
+        <div class="cap-desc">三种 Agent 供应商协议归一化，新增供应商 UI 层零改动</div>
+        <div class="cap-list">
+          <span>Knodo 扁平 chunk</span><span>AgentPro BTY 三段式</span><span>BetterYeah 嵌套 delta</span><span>AgentStreamEvent</span><span>fetch-event-source</span><span>断线重连</span><span>取消状态机</span>
+        </div>
+      </div>
+      <div class="cap reveal">
+        <div class="cap-head">
+          <div class="cap-icon">🔍</div>
+          <div class="cap-title">RAG 向量检索</div>
+        </div>
+        <div class="cap-desc">知识库向量搜索全链路，相似度评分 + TOP N 排名命中展示</div>
+        <div class="cap-list">
+          <span>parseKnowledgeCardResults</span><span>向量相似度</span><span>TOP N 排名</span><span>向量存储创建</span><span>文件上传入库</span><span>助手关联</span><span>FastAPI</span>
+        </div>
+      </div>
+      <div class="cap reveal">
+        <div class="cap-head">
+          <div class="cap-icon">🎨</div>
+          <div class="cap-title">多模型生图调度</div>
+        </div>
+        <div class="cap-desc">多模型并行生图槽位调度，预占位 + 乱序回填 + 取消状态机</div>
+        <div class="cap-list">
+          <span>buildAgentGenerateImageToolGroup</span><span>loading / waiting / done</span><span>Markdown / URL / 数组 / 对象</span><span>AbortController</span>
+        </div>
+      </div>
+      <div class="cap reveal">
+        <div class="cap-head">
+          <div class="cap-icon">🧠</div>
+          <div class="cap-title">端侧推理</div>
+        </div>
+        <div class="cap-desc">onnxruntime-web 浏览器端推理，Segment Anything 点击分割</div>
+        <div class="cap-list">
+          <span>onnxruntime-web</span><span>Segment Anything</span><span>Canvas 标注引擎</span><span>画笔 / 橡皮擦</span><span>Undo / Redo</span><span>DPR 高清</span><span>AI 局部重绘</span>
+        </div>
+      </div>
+      <div class="cap reveal">
+        <div class="cap-head">
+          <div class="cap-icon">🚀</div>
+          <div class="cap-title">全栈 AI 平台</div>
+        </div>
+        <div class="cap-desc">NestJS + FastAPI 后端独立交付，Docker + CI/CD 全流程部署</div>
+        <div class="cap-list">
+          <span>NestJS 10</span><span>FastAPI</span><span>TypeORM</span><span>JWT 认证</span><span>Docker</span><span>GitHub Actions</span><span>Nginx</span><span>Linux 运维</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= experience ================= -->
+<section class="block" id="experience">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="idx">03</span><h2>工作经历</h2><span class="en">Experience</span>
+    </div>
+
+    <div class="xp reveal">
+      <div class="when">2025.09 – 2026.07</div>
+      <div>
+        <div class="where">百丽时尚集团<span class="role">前端核心开发</span></div>
+        <p>负责 AI 设计平台「丽境」前端架构与核心研发，先后交付商品经营数据平台「百企」「丽构」；统一 Vue 3.5 + TypeScript + Vite 技术栈，主导 AI Agent 应用层架构设计与核心攻坚。</p>
+      </div>
+    </div>
+
+    <div class="xp reveal">
+      <div class="when">2023.12 – 2025.04</div>
+      <div>
+        <div class="where">深圳市高视维创意<span class="role">前端负责人</span></div>
+        <p>主导 EduGPT AI 教育平台双端系统前端架构，完成向量存储管理、AI 绘画排队、SSE 流式对话等 15+ 模块，团队并行开发效率提升 50%。</p>
+      </div>
+    </div>
+
+    <div class="xp reveal">
+      <div class="when">2022.06 – 2023.09</div>
+      <div>
+        <div class="where">深圳市布雷泽科技<span class="role">前端开发工程师</span></div>
+        <p>主导核心产品技术栈升级（Vue3 + TypeScript + Vite），交付金山 KOS 考试系统等多端项目；基于 ECharts 封装运营数据大屏组件库。</p>
+      </div>
+    </div>
+
+    <div class="xp reveal">
+      <div class="when">2019.09 – 2022.06</div>
+      <div>
+        <div class="where">深圳市云游四海科技<span class="role">前端开发工程师</span></div>
+        <p>Vue2 + Element / ECharts 与微信小程序技术栈，负责页面搭建、组件封装、API 对接与性能优化；开发数据大屏与图表组件库。</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= contact ================= -->
+<section class="block" id="contact">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="idx">04</span><h2>联系与简历</h2><span class="en">Contact</span>
+    </div>
+    <div class="contact-grid">
+      <a class="contact-card dl" href="resume-agent.html">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1a1 1 0 0 1 1 1v8.586l2.293-2.293a1 1 0 1 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L7 10.586V2a1 1 0 0 1 1-1ZM2 13a1 1 0 0 1 1-1h10a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1Z"/></svg>
+        <div class="cc-t">Agent 方向简历</div>
+        <div class="cc-s">resume-agent.html</div>
+      </a>
+      <a class="contact-card" href="mailto:623272616@qq.com">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 3.75A.75.75 0 0 1 2.75 3h10.5a.75.75 0 0 1 .75.75v8.5a.75.75 0 0 1-.75.75H2.75a.75.75 0 0 1-.75-.75v-8.5Zm1.5 1v.5l4.5 3 4.5-3v-.5h-9Zm0 2.37V11h9V7.12L8 9.87l-4.5-2.75Z"/></svg>
+        <div class="cc-t">邮箱</div>
+        <div class="cc-s">623272616@qq.com</div>
+      </a>
+      <a class="contact-card" href="https://github.com/yyu-wang" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.68-.49-2.69-.49-.46-.95-.74-1.18-.74-1.18-.61-.42.05-.41.05-.41 1.07.08 1.64 1.1 1.64 1.1.62 1.06 1.63.76 2.03.58.06-.45.24-.76.44-.94-1.56-.18-3.2-.78-3.2-3.46 0-.76.27-1.39.72-1.88-.07-.18-.31-.89.07-1.86 0 0 .59-.19 1.92.72.56-.16 1.16-.24 1.75-.24.6 0 1.2.08 1.75.24 1.33-.91 1.92-.72 1.92-.72.38.97.14 1.68.07 1.86.45.49.72 1.12.72 1.88 0 2.69-1.64 3.28-3.2 3.45.25.22.48.65.48 1.31 0 .95-.01 1.71-.01 1.94 0 .21.15.46.55.38C13.71 14.53 16 11.54 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        <div class="cc-t">GitHub</div>
+        <div class="cc-s">github.com/yyu-wang</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= footer ================= -->
+<footer>
+  <div class="wrap">
+    <p>© 2026 王嵛 · AI Agent Application Engineer · Built with TypeScript & SSE</p>
+  </div>
+</footer>
+
+<script>
+  // reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  // nav active state
+  const navLinks = document.querySelectorAll('nav .links a');
+  const sections = document.querySelectorAll('section.block');
+  const navIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const link = document.querySelector(`nav .links a[href="#${e.target.id}"]`);
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(s => navIO.observe(s));
+</script>
+
+</body>
+</html>
