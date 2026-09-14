@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agent SSE Gateway · 多协议流式网关与生图调度器 Demo</title>
+  </head>
+  <body>
+    <header>
+      <h1>Agent SSE Gateway</h1>
+      <p class="sub">多协议 Agent SSE 流式网关 · 多模型并行生图槽位调度器 —— 从生产级 AI 设计平台前端抽离的通用方案</p>
+      <div class="badges">
+        <span>TypeScript</span><span>核心零框架依赖</span><span>@microsoft/fetch-event-source</span><span>vitest</span>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel">
+        <h2>① Agent 对话 · 多协议流式解析</h2>
+        <p class="hint">切换供应商协议，观察同一段 UI 代码消费同一套 <code>AgentStreamEvent</code> —— 新增供应商时界面零改动。</p>
+
+        <div class="row">
+          <label>供应商协议</label>
+          <select id="protocol">
+            <option value="openai">OpenAI 兼容（扁平 chunk）</option>
+            <option value="agent" selected>Agent 嵌套 delta</option>
+            <option value="events">大写扁平事件</option>
+          </select>
+          <span id="protocol-desc" class="desc"></span>
+        </div>
+
+        <div class="chat-input">
+          <textarea id="chat-input" rows="2">帮我分析 2026 春夏趋势，并生成一张概念图</textarea>
+          <div class="btns">
+            <button id="chat-send" class="primary">发送</button>
+            <button id="chat-cancel" disabled>取消</button>
+          </div>
+        </div>
+
+        <div id="chat" class="chat"></div>
+
+        <details class="raw">
+          <summary>原始 SSE 帧日志</summary>
+          <pre id="agent-raw"></pre>
+        </details>
+      </section>
+
+      <section class="panel">
+        <h2>② 多模型并行生图 · 槽位调度</h2>
+        <p class="hint">三通道并行、乱序返回：start 预占位 → gpt 先回 → gemini 次之 → comfyui 最慢。中途点「取消」体验状态机（有结果保留 / 无结果标记已取消）；生成中再次点「生成」体验幽灵请求治理。</p>
+
+        <div class="row">
+          <input id="gen-prompt" class="grow" value="未来主义运动鞋概念图" />
+        </div>
+        <div class="row counts">
+          <label>comfyui</label><input id="count-comfyui" type="number" min="0" max="4" value="1" />
+          <label>gemini</label><input id="count-gemini" type="number" min="0" max="4" value="1" />
+          <label>gpt</label><input id="count-gpt" type="number" min="0" max="4" value="1" />
+          <label class="chk"><input id="fail-gemini" type="checkbox" /> 模拟 gemini 失败</label>
+          <div class="btns">
+            <button id="gen-run" class="primary">生成</button>
+            <button id="gen-cancel" disabled>取消</button>
+          </div>
+        </div>
+
+        <div id="gen-status" class="status">等待提交</div>
+        <div id="slots" class="slots"></div>
+
+        <details class="raw">
+          <summary>事件流日志</summary>
+          <pre id="gen-log"></pre>
+        </details>
+      </section>
+    </main>
+
+    <footer>
+      核心代码位于 <code>src/core/</code>（协议解析 / 传输工厂 / 槽位调度 / Runner），零框架依赖，可直接移植到 Vue / React 项目 ·
+      协议与业务均已脱敏 · MIT License
+    </footer>
+
+    <script type="module" src="/src/demo/main.ts"></script>
+  </body>
+</html>

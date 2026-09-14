@@ -1,0 +1,22 @@
+{
+  "name": "agent-sse-gateway",
+  "version": "1.0.0",
+  "description": "多协议 Agent SSE 流式网关 + 多模型并行生图槽位调度器（从生产级 AI 设计平台前端抽离的通用方案）",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@microsoft/fetch-event-source": "^2.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.8",
+    "vitest": "^2.1.1"
+  }
+}
